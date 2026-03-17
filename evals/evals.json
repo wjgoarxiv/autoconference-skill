@@ -1,0 +1,33 @@
+[
+  {
+    "input": "Run an autoconference with 3 researchers to optimize my sorting algorithm",
+    "expected_skill": "autoconference-skill",
+    "should_trigger": true
+  },
+  {
+    "input": "Set up a conference.md and have multiple researchers compete on prompt quality",
+    "expected_skill": "autoconference-skill",
+    "should_trigger": true
+  },
+  {
+    "input": "I want parallel research with peer review on my ML pipeline",
+    "expected_skill": "autoconference-skill",
+    "should_trigger": true
+  },
+  {
+    "input": "Optimize my prompt iteratively until accuracy exceeds 90%",
+    "expected_skill": "autoresearch-skill",
+    "should_trigger": false,
+    "note": "Single researcher loop — should trigger autoresearch, not autoconference"
+  },
+  {
+    "input": "Summarize this paper for me",
+    "expected_skill": "scientific-reading",
+    "should_trigger": false
+  },
+  {
+    "input": "Review my conference.md and start the research conference with adversarial review",
+    "expected_skill": "autoconference-skill",
+    "should_trigger": true
+  }
+]
