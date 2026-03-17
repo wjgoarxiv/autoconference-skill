@@ -39,6 +39,19 @@
       "keyFiles": []
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "docs/superpowers/plans/2026-03-18-autoconference-implementation.md",
+      "accessCount": 14,
+      "lastAccessed": 1773768362423,
+      "type": "file"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-03-18-autoconference-design.md",
+      "accessCount": 3,
+      "lastAccessed": 1773768360801,
+      "type": "file"
+    }
+  ],
   "userDirectives": []
 }
