@@ -53,6 +53,12 @@
       "type": "file"
     },
     {
+      "path": "SKILL.md",
+      "accessCount": 2,
+      "lastAccessed": 1773768677978,
+      "type": "file"
+    },
+    {
       "path": "",
       "accessCount": 1,
       "lastAccessed": 1773768376156,
@@ -134,12 +140,6 @@
       "path": "scripts/init_conference.py",
       "accessCount": 1,
       "lastAccessed": 1773768536712,
-      "type": "file"
-    },
-    {
-      "path": "SKILL.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768540424,
       "type": "file"
     },
     {
