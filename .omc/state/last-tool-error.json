@@ -1,0 +1,7 @@
+{
+  "tool_name": "Read",
+  "tool_input_preview": "{\"file_path\":\"/Users/woojin/Desktop/02_Areas/01_Codes_automation/14_autoresearch-skill\"}",
+  "error": "EISDIR: illegal operation on a directory, read '/Users/woojin/Desktop/02_Areas/01_Codes_automation/14_autoresearch-skill'",
+  "timestamp": "2026-03-17T16:10:04.101Z",
+  "retry_count": 2
+}
