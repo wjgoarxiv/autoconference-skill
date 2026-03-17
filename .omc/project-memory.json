@@ -48,8 +48,98 @@
     },
     {
       "path": "docs/superpowers/specs/2026-03-18-autoconference-design.md",
-      "accessCount": 3,
-      "lastAccessed": 1773768360801,
+      "accessCount": 4,
+      "lastAccessed": 1773768370712,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1773768376156,
+      "type": "directory"
+    },
+    {
+      "path": "LICENSE",
+      "accessCount": 1,
+      "lastAccessed": 1773768386643,
+      "type": "file"
+    },
+    {
+      "path": "assets/synthesis_template.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768405992,
+      "type": "file"
+    },
+    {
+      "path": "assets/conference_template.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768408656,
+      "type": "file"
+    },
+    {
+      "path": "assets/report_template.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768413161,
+      "type": "file"
+    },
+    {
+      "path": "templates/quick-conference.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768430251,
+      "type": "file"
+    },
+    {
+      "path": "templates/prompt-optimization.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768439012,
+      "type": "file"
+    },
+    {
+      "path": "templates/code-performance.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768447179,
+      "type": "file"
+    },
+    {
+      "path": "templates/research-synthesis.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768456567,
+      "type": "file"
+    },
+    {
+      "path": "references/core-principles.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768474634,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_init_conference.py",
+      "accessCount": 1,
+      "lastAccessed": 1773768484306,
+      "type": "file"
+    },
+    {
+      "path": "references/agent-prompts.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768490094,
+      "type": "file"
+    },
+    {
+      "path": "references/results-logging.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768524557,
+      "type": "file"
+    },
+    {
+      "path": "scripts/init_conference.py",
+      "accessCount": 1,
+      "lastAccessed": 1773768536712,
+      "type": "file"
+    },
+    {
+      "path": "SKILL.md",
+      "accessCount": 1,
+      "lastAccessed": 1773768540424,
       "type": "file"
     }
   ],
