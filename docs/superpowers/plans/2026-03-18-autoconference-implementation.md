@@ -155,6 +155,7 @@ This is the template users copy to start a new conference. Must match the format
 ## Constraints
 - **Max total iterations:** 60
 - **Time budget:** 2h
+- **Token budget:** {optional — omit or set a cap}
 - **Researcher timeout:** 30m
 
 ## Current Approach
@@ -356,6 +357,7 @@ Copy the failure handling from spec Section 14:
 - Researcher self-termination (Level 3 stuck or target reached) → mark status, proceed
 - Merge conflicts in worktree mode → better-metric researcher wins conflicting files
 - Conference resumption → detect existing round artifacts, resume from last complete round
+- Single-researcher conference (count: 1) → Phase 2 skipped, Phase 3 still runs (reviewer adds value over plain autoresearch), per-researcher TSV uses `researcher_A_results.tsv` naming for consistency
 
 **Section 4 — Endgame:**
 - Conference-level endgame overrides researcher-level endgame
@@ -415,6 +417,8 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
+  - WebFetch
+  - WebSearch
 ---
 ```
 
@@ -650,11 +654,22 @@ git commit -m "feat: add synthesis and report templates"
 ### Task 9: Shipped Conference Templates
 
 **Files:**
+- Create: `templates/quick-conference.md`
 - Create: `templates/prompt-optimization.md`
 - Create: `templates/code-performance.md`
 - Create: `templates/research-synthesis.md`
 
-- [ ] **Step 1: Write prompt-optimization template**
+- [ ] **Step 1: Write quick-conference template**
+
+A minimal preset from spec Section 12 for testing whether a problem benefits from the conference format:
+- Mode: metric (user fills in their metric)
+- Researchers: 2
+- Iterations per round: 3
+- Max rounds: 2
+- Strategy: free
+- ~12 total iterations + review overhead — fast enough to validate the approach
+
+- [ ] **Step 2: Write prompt-optimization template**
 
 A pre-filled `conference.md` for optimizing LLM prompts:
 - Mode: metric
@@ -666,7 +681,7 @@ A pre-filled `conference.md` for optimizing LLM prompts:
 - Constraints: max_total_iterations 45, time_budget 1h
 - Search space: allowed = system prompt text, forbidden = test cases, model choice
 
-- [ ] **Step 2: Write code-performance template**
+- [ ] **Step 3: Write code-performance template**
 
 A pre-filled `conference.md` for optimizing code speed:
 - Mode: metric
@@ -678,7 +693,7 @@ A pre-filled `conference.md` for optimizing code speed:
 - Constraints: max_total_iterations 45, time_budget 2h
 - Search space: allowed = implementation code, forbidden = test harness, input data
 
-- [ ] **Step 3: Write research-synthesis template**
+- [ ] **Step 4: Write research-synthesis template**
 
 A pre-filled `conference.md` for qualitative literature exploration:
 - Mode: qualitative
@@ -690,7 +705,7 @@ A pre-filled `conference.md` for qualitative literature exploration:
 - Constraints: max_total_iterations 30, max_rounds 3
 - No worktrees (qualitative mode)
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add templates/
@@ -810,7 +825,11 @@ Expected: FAIL (script doesn't exist yet)
 
 - [ ] **Step 3: Write init_conference.py**
 
-Follows the pattern of autoresearch's `init_research.py` but extended for conferences:
+Follows the pattern of autoresearch's `init_research.py` but extended for conferences.
+
+**IMPORTANT:** Do NOT copy the interactive `input()` prompt from `init_research.py` for existing directories. Instead, use a `--force` flag: if the output directory exists and is not empty, abort with an error message unless `--force` is passed. This ensures tests work reliably with `subprocess.run`.
+
+CLI arguments:
 
 - `--goal` (required): Conference goal
 - `--mode` (default: `metric`): `metric` or `qualitative`
