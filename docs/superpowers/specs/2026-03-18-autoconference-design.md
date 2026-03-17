@@ -3,7 +3,7 @@
 > Spawn a conference of autonomous researchers that compete, collaborate, and synthesize breakthroughs.
 
 **Date:** 2026-03-18
-**Status:** Approved
+**Status:** Approved (revised after spec review)
 **Extends:** [autoresearch-skill](https://github.com/wjgoarxiv/autoresearch-skill)
 
 ---
@@ -86,13 +86,26 @@ The fundamental unit of execution is a **Round**. A conference consists of multi
 Each researcher is a full autoresearch subagent running the 5-stage loop (Understand → Hypothesize → Experiment → Evaluate → Log) for `iterations_per_round` iterations within their assigned search space partition.
 
 **Phase 2 — Poster Session:**
-Session Chair (Haiku) collects all researcher logs and produces a structured summary: what each researcher tried, what worked, what failed, metric deltas.
+Session Chair (Haiku) collects all researcher logs and produces a structured summary: what each researcher tried, what worked, what failed, metric deltas. The Conference Chair passes all researcher log file paths, TSV file paths, and worktree paths (if applicable) in the Session Chair's prompt. To manage context size, the Session Chair receives **TSV summaries + the last N iteration entries from each log** (not full logs). Recommended cap: 5 researchers x 10 iterations max per round.
 
 **Phase 3 — Peer Review (adversarial):**
 Reviewer (Opus) reads the poster session summary and challenges claims. Checks for overfitting, measurement noise, invalid comparisons, logical gaps. Assigns verdicts: `validated`, `challenged`, or `overturned`.
 
 **Phase 4 — Knowledge Transfer:**
 Conference Chair appends validated findings to each researcher's `Shared Knowledge` section. Researchers can build on each other's discoveries in the next round.
+
+### Mode-Specific Inner Loop Behavior
+
+**Metric mode:** Each researcher runs the standard autoresearch 5-stage loop with the numeric metric from `conference.md`. Keep/revert decisions are mechanical — same as standalone autoresearch.
+
+**Qualitative mode:** The autoresearch loop's Principle #2 (Mechanical Verification) cannot apply directly because there is no numeric metric. Instead, each researcher uses **self-assessment against the Success Criteria** as a proxy metric:
+
+1. After each iteration, the researcher prompts itself: *"Rate this result 1-10 against the Success Criteria. Is it better than the previous best?"*
+2. The self-assessed score drives keep/revert decisions during Phase 1 (the inner loop)
+3. The Reviewer (Opus) in Phase 3 provides the **authoritative** judgment — it may overturn self-assessments
+4. Self-assessment scores are logged to the per-researcher TSV as `metric_value`
+
+This is an acknowledged departure from autoresearch's mechanical verification principle. The tradeoff: qualitative mode enables broader research tasks (literature synthesis, hypothesis generation) at the cost of less reliable inner-loop evaluation. The adversarial Reviewer in Phase 3 compensates by providing a rigorous external check each round.
 
 ---
 
@@ -125,11 +138,18 @@ count: 3
 iterations_per_round: 5
 max_rounds: 4
 
+## Search Space
+### Allowed Changes
+[What researchers CAN modify — inherited by all researchers]
+
+### Forbidden Changes
+[What researchers CANNOT modify — e.g., test data, evaluation scripts, API contracts]
+
 ## Search Space Partitioning
-strategy: divergent | assigned | free
-# divergent → system auto-assigns different strategies to each researcher
+strategy: assigned | free
 # assigned → user specifies each researcher's focus below
 # free → all researchers explore freely (may overlap)
+# (divergent → deferred to v2: auto-partitioning requires heuristic design)
 
 ### Researcher A Focus (assigned mode only)
 [e.g., "Explore architectural changes only"]
@@ -220,6 +240,54 @@ Five distinct roles with clear responsibilities and model tier assignments.
 - **Session Chair at Haiku** — pure summarization, no deep reasoning needed
 - **Synthesizer at Opus** — combining insights from multiple researchers requires strongest reasoning
 - **Conference Chair at Sonnet** — orchestration logic, not deep analysis
+
+### Parallel Execution Mechanism
+
+Claude Code's `Agent` tool supports **multiple simultaneous tool calls in a single message block**. This is proven infrastructure — `ultrawork`, `dispatching-parallel-agents`, and OMC's team mode all use this pattern. The Conference Chair spawns N Researcher agents in a single message with N `Agent` tool calls, all with `run_in_background: true`. The Conference Chair is notified when each completes.
+
+```
+# Conference Chair sends ONE message with N parallel Agent calls:
+Agent(subagent_type="executor", model="sonnet", prompt="[Researcher A prompt]", run_in_background=true)
+Agent(subagent_type="executor", model="sonnet", prompt="[Researcher B prompt]", run_in_background=true)
+Agent(subagent_type="executor", model="sonnet", prompt="[Researcher C prompt]", run_in_background=true)
+```
+
+**Fallback for environments without parallel support:** Run researchers sequentially with strict file-based isolation. Each researcher reads only its own log files and the shared knowledge section. Sequential execution is slower but functionally identical.
+
+### Subagent Prompt Contracts
+
+Each agent role receives a structured prompt from the Conference Chair. Required sections per role:
+
+**Researcher prompt MUST include:**
+- The full autoresearch 5-stage loop protocol (embedded from SKILL.md or referenced)
+- This researcher's search space partition (from `assigned` focus or full space for `free`)
+- The conference's `Allowed Changes` and `Forbidden Changes`
+- Shared Knowledge from prior rounds (empty for round 1)
+- Path to this researcher's log file and TSV file
+- Path to this researcher's worktree (if applicable)
+- `iterations_per_round` count
+- Mode-specific evaluation instructions (numeric metric OR self-assessment criteria)
+
+**Session Chair prompt MUST include:**
+- Paths to ALL researcher log files and TSV files for the current round
+- Paths to worktree diffs (if applicable)
+- Output path for `poster_session_round_N.md`
+- Instruction to summarize: what each researcher tried, results, metric deltas, notable failures
+
+**Reviewer prompt MUST include:**
+- Path to the poster session summary for this round
+- The conference's Success Metric or Success Criteria
+- Paths to researcher worktrees (for running tests, if applicable)
+- Instructions to challenge claims: check for overfitting, measurement noise, invalid comparisons
+- Output path for `peer_review_round_N.md`
+- Verdict format: `validated` | `challenged` | `overturned` per finding
+
+**Synthesizer prompt MUST include:**
+- Paths to ALL poster session summaries and peer review documents
+- Paths to ALL researcher logs and TSV files
+- The conference's Goal and Success Metric/Criteria
+- Instructions to combine complementary insights (not just pick a winner)
+- Output paths for `synthesis.md` and `final_report.md`
 
 ---
 
@@ -328,6 +396,7 @@ USER writes conference.md
 
 - Researchers switch from EXPLORE to EXPLOIT (micro-optimizations only)
 - Reviewer focuses on validating final claims rather than challenging
+- **Precedence rule:** Conference-level endgame overrides researcher-level endgame. If the Conference Chair signals "last round," ALL researchers switch to EXPLOIT regardless of their individual remaining iterations.
 
 ---
 
@@ -394,19 +463,17 @@ Event-based hooks for observability. Users wire these to notifications (Telegram
 | `conference.converged` | Convergence detected | final metrics, round count |
 | `conference.completed` | Synthesis done | link to synthesis.md, final_report.md |
 
-### Implementation
+### Implementation (v1)
 
-Events are written to `conference_events.jsonl` (append-only, one JSON object per line). External tools can tail this file for real-time monitoring.
+**v1 scope:** Events are written to `conference_events.jsonl` (append-only, one JSON object per line). Each line is a JSON object with `{ event, timestamp, payload }`. External tools can tail this file for real-time monitoring.
 
-Additionally, events map to Claude Code hooks (`PostToolUse`, `Stop`, etc.) for integration with OMC's notification system.
-
-### Example: Slack Notification Setup
-
+```jsonl
+{"event":"conference.started","timestamp":"2026-03-18T10:00:00Z","payload":{"researchers":3,"mode":"metric","goal":"Optimize inference latency"}}
+{"event":"round.started","timestamp":"2026-03-18T10:00:05Z","payload":{"round":1}}
+{"event":"round.completed","timestamp":"2026-03-18T10:15:00Z","payload":{"round":1,"best_metric":0.82,"converged":false}}
 ```
-User runs: /configure-notifications slack
-Then in conference.md:
-  notify_on: round.completed, conference.converged, researcher.stuck
-```
+
+**v2 (future):** Map events to Claude Code hooks and OMC's `/configure-notifications` for push notifications (Slack/Discord/Telegram). Would add a `notify_on` field to `conference.md`.
 
 ---
 
@@ -473,13 +540,54 @@ Build for Claude Code's `Agent` tool first. Abstract the subagent spawning inter
 
 ---
 
-## 14. Open Questions
+## 14. Failure Modes & Edge Cases
 
-1. **Gemini/Codex CLI subagent API** — What's the exact interface? Can they run parallel subagents with model routing?
-2. **Token budget estimation** — Can we predict total token cost from `conference.md` config before starting?
-3. **Partial results on interruption** — If the user cancels mid-conference, how do we preserve what's been learned?
-4. **Researcher memory across rounds** — Should researchers remember their own history across rounds, or start fresh with only shared knowledge?
+### Researcher Crash or Timeout
+
+- Each researcher has a **per-researcher timeout** of `time_budget / researcher_count` (or a configurable `researcher_timeout` field)
+- If a researcher crashes or times out, the Conference Chair proceeds to Phase 2 with partial results from completed researchers
+- The failed researcher is logged in `conference_results.tsv` with status `FAILED` and excluded from that round's poster session
+- On the next round, the failed researcher is re-spawned from its last known good state
+
+### Researcher Self-Termination (Level 3 Stuck or Target Reached)
+
+The autoresearch inner loop may terminate a researcher before `iterations_per_round` completes:
+- **Target reached:** Researcher hit the success metric target. Conference Chair marks this researcher as `CONVERGED` and proceeds. If ALL researchers converge, skip to synthesis.
+- **Level 3 stuck (7 consecutive non-improving):** Researcher produces its own `final_report.md`. Conference Chair marks it as `STALLED`, proceeds to Phase 2 with available results. On the next round, this researcher is re-spawned with a fundamentally different strategy derived from other researchers' shared knowledge.
+
+### Merge Conflicts in Worktree Mode
+
+When cherry-picking validated improvements to `conference/best`:
+1. Conference Chair attempts automatic merge via `git merge --no-edit`
+2. If conflicts arise, **only the researcher with the better metric delta gets their changes picked** for the conflicting files
+3. Non-conflicting changes from both researchers are kept
+4. Conflicts and resolutions are logged in `peer_review_round_N.md`
+
+### Conference Resumption After Interruption
+
+All per-round artifacts are persisted to disk as they are generated (logs, TSVs, poster sessions, reviews). On startup, the Conference Chair:
+1. Checks for existing round artifacts in the working directory
+2. Determines the last fully completed round (all 4 phases done)
+3. Resumes from the next round, re-reading shared knowledge from the last completed round
+4. If interrupted mid-round, discards incomplete round artifacts and re-runs from round start
+
+### Single-Researcher Conference (count: 1)
+
+Degrades gracefully to enhanced autoresearch with peer review:
+- Phase 1 runs one researcher
+- Phase 2 is skipped (nothing to compare)
+- Phase 3 still runs (reviewer still challenges claims — this is the value-add over plain autoresearch)
+- Per-researcher TSV uses `researcher_A_results.tsv` naming (not `autoresearch-results.tsv`) for consistency
 
 ---
 
-*Design approved 2026-03-18. Ready for implementation planning.*
+## 15. Open Questions
+
+1. **Gemini/Codex CLI subagent API** — What's the exact interface? Can they run parallel subagents with model routing?
+2. **Token budget estimation** — Can we predict total token cost from `conference.md` config before starting?
+3. **Researcher memory across rounds** — Should researchers remember their own full history across rounds, or start fresh with only shared knowledge? (Current design: fresh start + shared knowledge, to keep context windows manageable)
+4. **`divergent` partitioning algorithm (v2)** — How should the system auto-assign different strategies? Requires heuristic design based on the search space description.
+
+---
+
+*Design approved 2026-03-18. Revised after spec review. Ready for implementation planning.*
