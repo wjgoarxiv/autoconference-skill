@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Research outputs (generated, not committed)
+*_log.md
+*_results.tsv
+conference_events.jsonl
+synthesis.md
+final_report.md
+poster_session_*.md
+peer_review_*.md
