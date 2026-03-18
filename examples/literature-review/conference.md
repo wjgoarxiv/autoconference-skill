@@ -70,6 +70,16 @@ Initial taxonomy coverage:
 ## Shared Knowledge
 <!-- Auto-populated after each round with validated findings -->
 
+### Round 1 Validated Findings
+
+1. **Evening exercise superior for blood pressure reduction** in hypertensive patients, mediated by sympathetic nervous system modulation and improved baroreflex sensitivity (Brito 2019, Brito 2024, Sevilla-Lorente 2023). *Caveat: both Brito studies from same lab.*
+2. **Evening/afternoon exercise superior for glycemic control in T2DM.** Afternoon HIIT lowered overnight and next-day glycemia; morning HIIT can paradoxically raise blood glucose acutely via cortisol-driven hepatic glucose output (Savikj 2019, Mancilla 2021).
+3. **Evening T:C ratio is more favorable for anabolism.** Cortisol exercise response is attenuated in evening; baseline GH twofold higher in evening (Kanaley 2001, Hayes 2010). *Caveat: acute T:C ratio may not predict chronic hypertrophy outcomes.*
+4. **Morning exercise reliably phase-advances the circadian clock.** Effect modulated by chronotype — late chronotypes advance from both AM and PM exercise (Thomas 2020, Youngstedt 2019). Strong RCT evidence (N=52).
+5. **Short-term hypertrophy shows no timing difference; long-term may favor evening.** <3 months: equivalent (Sedliak 2009). >3 months: evening groups gained more muscle mass (Kuusmaa 2016). *Caveat: Kuusmaa used combined strength + endurance protocol.*
+6. **Evening exercise does NOT disrupt sleep** in healthy young/middle-aged adults. Two independent meta-analyses confirm (Stutz 2019, Frimpong 2021). Only consistent effect: slight REM reduction (~2.3%).
+7. **Consistent exercise timing is more important than specific time** for habit formation and long-term adherence. Consistent exercisers perform ~23% more weekly exercise minutes (Schumacher 2020, 2022, 2023; Thomas 2022). *Caveat: all observational — causation not established.*
+
 ## Context & References
 - Exercise timing research has accelerated since 2019 with wearable-derived data
 - Key confound: most studies do not control for chronotype
@@ -82,3 +92,6 @@ Initial taxonomy coverage:
 <!-- Auto-maintained by Conference Chair. Do not edit manually. -->
 | Round | Researcher | Best Metric | Key Finding | Status |
 |-------|-----------|-------------|-------------|--------|
+| 1 | A | 8/8 | Evening superior for CV + metabolic; morning for fat oxidation (fasted); sex-specific effects | completed |
+| 1 | B | 8/8 | Evening T:C ratio favorable; morning phase-advances clock; hypertrophy timing-neutral short-term | completed |
+| 1 | C | 8/8 | Evening exercise safe for sleep; consistent timing > specific time for adherence | completed |

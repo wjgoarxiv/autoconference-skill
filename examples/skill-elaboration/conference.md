@@ -79,6 +79,22 @@ Baseline scores:
 - Avoid deep classification hierarchies — flat symbol tables are more effective (A)
 - Avoid aggressive flow direction heuristics — they confuse numbering (B)
 
+### Round 2 Validated Findings
+
+1. **Coherent workflow structure** (A): Consolidating P&ID analysis into a step-by-step procedure improves systematic coverage
+2. **Secondary equipment types** (A): Expanding symbol table beyond primary types (aerator, weir, mixer, dosing pump, sludge collector) catches last missing equipment
+3. **Secondary stream identification** (A): Explicit prompting for utility/auxiliary streams after main process streams pushes stream count higher
+4. **Multi-pass tracing** (B): Three-pass approach (main process, auxiliary, utility) improves recall systematically
+5. **Connectivity matrix** (B): Equipment-stream matrix with gap detection is the strongest verification technique — reveals both missing streams and equipment
+6. **Confidence scores** (C): Including marginal detections with low confidence (0.0-1.0) rather than suppressing them improves recall
+7. **Quantitative thresholds** (C): Expected count ranges (stream-to-equipment ratio 1.5x-2.5x) with re-scan trigger create self-correction
+8. **Cross-reference validation** (C): Bidirectional consistency between equipment list and stream connections improves numbering accuracy
+
+**Negative findings (Round 2):**
+- Mandatory numbering enforcement causes false assignments — use confidence-based numbering instead (B)
+- Output format examples/templates do not improve detection (C)
+- Generic verification prompts add no value once connectivity matrix is in place (A)
+
 ## Context & References
 - Evaluation harness: `evaluate.py`
 - Annotation script: `annotate_pid.py`
@@ -95,3 +111,6 @@ Baseline scores:
 | 1 | A | 0.4500 | Symbol table + connection points + instrument discrimination | completed |
 | 1 | B | 0.7144 | Stream tracing + ISA numbering + bypass/branch detection | completed |
 | 1 | C | 0.6133 | JSON schema + validation rules + naming conventions | completed |
+| 2 | A | 0.9452 | Workflow consolidation + secondary equipment + utility streams | target_reached |
+| 2 | B | 0.9452 | Multi-pass tracing + connectivity matrix + adjacency check | target_reached |
+| 2 | C | 0.9452 | Confidence scores + quantitative thresholds + cross-ref validation | target_reached |

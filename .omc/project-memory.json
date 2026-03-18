@@ -47,6 +47,18 @@
       "type": "file"
     },
     {
+      "path": "examples/skill-elaboration/conference.md",
+      "accessCount": 8,
+      "lastAccessed": 1773815301564,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference.md",
+      "accessCount": 8,
+      "lastAccessed": 1773815330168,
+      "type": "file"
+    },
+    {
       "path": "README.md",
       "accessCount": 7,
       "lastAccessed": 1773808072029,
@@ -59,15 +71,21 @@
       "type": "file"
     },
     {
+      "path": "examples/literature-review/conference.md",
+      "accessCount": 6,
+      "lastAccessed": 1773815157603,
+      "type": "file"
+    },
+    {
       "path": "assets/conference_template.md",
       "accessCount": 5,
       "lastAccessed": 1773808209493,
       "type": "file"
     },
     {
-      "path": "examples/skill-elaboration/conference.md",
+      "path": "examples/prompt-optimization/conference_results.tsv",
       "accessCount": 5,
-      "lastAccessed": 1773813725115,
+      "lastAccessed": 1773815352775,
       "type": "file"
     },
     {
@@ -81,6 +99,18 @@
       "accessCount": 4,
       "lastAccessed": 1773808205557,
       "type": "directory"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_A_log.md",
+      "accessCount": 4,
+      "lastAccessed": 1773815151662,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_A_results.tsv",
+      "accessCount": 4,
+      "lastAccessed": 1773815227274,
+      "type": "file"
     },
     {
       "path": "templates/code-performance.md",
@@ -107,15 +137,51 @@
       "type": "file"
     },
     {
-      "path": "examples/literature-review/conference.md",
+      "path": "examples/literature-review/researcher_A_log.md",
       "accessCount": 3,
-      "lastAccessed": 1773814818900,
+      "lastAccessed": 1773814945944,
       "type": "file"
     },
     {
-      "path": "examples/prompt-optimization/researcher_A_log.md",
+      "path": "examples/literature-review/researcher_B_log.md",
       "accessCount": 3,
-      "lastAccessed": 1773814894972,
+      "lastAccessed": 1773814970664,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review/researcher_C_log.md",
+      "accessCount": 3,
+      "lastAccessed": 1773814992811,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference_events.jsonl",
+      "accessCount": 3,
+      "lastAccessed": 1773815068463,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_B_log.md",
+      "accessCount": 3,
+      "lastAccessed": 1773815182691,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_C_log.md",
+      "accessCount": 3,
+      "lastAccessed": 1773815215082,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_B_results.tsv",
+      "accessCount": 3,
+      "lastAccessed": 1773815234901,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_C_results.tsv",
+      "accessCount": 3,
+      "lastAccessed": 1773815241565,
       "type": "file"
     },
     {
@@ -182,36 +248,6 @@
       "path": "examples/code-optimization/conference.md",
       "accessCount": 2,
       "lastAccessed": 1773813147654,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/conference.md",
-      "accessCount": 2,
-      "lastAccessed": 1773813149679,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_A_results.tsv",
-      "accessCount": 2,
-      "lastAccessed": 1773813223692,
-      "type": "file"
-    },
-    {
-      "path": "examples/literature-review/researcher_A_log.md",
-      "accessCount": 2,
-      "lastAccessed": 1773814824692,
-      "type": "file"
-    },
-    {
-      "path": "examples/literature-review/researcher_B_log.md",
-      "accessCount": 2,
-      "lastAccessed": 1773814825602,
-      "type": "file"
-    },
-    {
-      "path": "examples/literature-review/researcher_C_log.md",
-      "accessCount": 2,
-      "lastAccessed": 1773814826902,
       "type": "file"
     },
     {
@@ -302,42 +338,6 @@
       "path": "examples/literature-review/visualize.py",
       "accessCount": 1,
       "lastAccessed": 1773813164735,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_B_log.md",
-      "accessCount": 1,
-      "lastAccessed": 1773813173801,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_C_log.md",
-      "accessCount": 1,
-      "lastAccessed": 1773813175831,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_B_results.tsv",
-      "accessCount": 1,
-      "lastAccessed": 1773813178743,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_C_results.tsv",
-      "accessCount": 1,
-      "lastAccessed": 1773813179640,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/conference_results.tsv",
-      "accessCount": 1,
-      "lastAccessed": 1773813180943,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/conference_events.jsonl",
-      "accessCount": 1,
-      "lastAccessed": 1773813183605,
       "type": "file"
     }
   ],
