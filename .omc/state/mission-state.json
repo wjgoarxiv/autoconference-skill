@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-18T06:28:49.619Z",
+  "updatedAt": "2026-03-18T06:34:42.121Z",
   "missions": [
     {
       "id": "session:ec0fe429-7649-4899-bc22-d04cb38daa15:none",
@@ -169,15 +169,15 @@
       "name": "none",
       "objective": "Session mission",
       "createdAt": "2026-03-18T04:27:42.770Z",
-      "updatedAt": "2026-03-18T06:28:49.619Z",
+      "updatedAt": "2026-03-18T06:34:42.121Z",
       "status": "running",
       "workerCount": 8,
       "taskCounts": {
         "total": 8,
         "pending": 0,
         "blocked": 0,
-        "inProgress": 3,
-        "completed": 5,
+        "inProgress": 1,
+        "completed": 7,
         "failed": 0
       },
       "agents": [
@@ -215,11 +215,11 @@
           "name": "deep-executor:a936fc7",
           "role": "deep-executor",
           "ownership": "a936fc7e01c59111b",
-          "status": "running",
+          "status": "done",
           "currentStep": null,
-          "latestUpdate": null,
+          "latestUpdate": "completed",
           "completedSummary": null,
-          "updatedAt": "2026-03-18T05:52:17.881Z"
+          "updatedAt": "2026-03-18T06:34:42.121Z"
         },
         {
           "name": "deep-executor:a76c1c2",
@@ -245,11 +245,11 @@
           "name": "deep-executor:a0ca886",
           "role": "deep-executor",
           "ownership": "a0ca88649d2d228f2",
-          "status": "running",
+          "status": "done",
           "currentStep": null,
-          "latestUpdate": null,
+          "latestUpdate": "completed",
           "completedSummary": null,
-          "updatedAt": "2026-03-18T05:52:28.043Z"
+          "updatedAt": "2026-03-18T06:31:28.367Z"
         },
         {
           "name": "deep-executor:a7366bc",
@@ -294,6 +294,22 @@
           "agent": "deep-executor:a7366bc",
           "detail": "completed",
           "sourceKey": "session-stop:a7366bc9d38854e1a"
+        },
+        {
+          "id": "session-stop:a0ca88649d2d228f2:2026-03-18T06:31:28.367Z",
+          "at": "2026-03-18T06:31:28.367Z",
+          "kind": "completion",
+          "agent": "deep-executor:a0ca886",
+          "detail": "completed",
+          "sourceKey": "session-stop:a0ca88649d2d228f2"
+        },
+        {
+          "id": "session-stop:a936fc7e01c59111b:2026-03-18T06:34:42.121Z",
+          "at": "2026-03-18T06:34:42.121Z",
+          "kind": "completion",
+          "agent": "deep-executor:a936fc7",
+          "detail": "completed",
+          "sourceKey": "session-stop:a936fc7e01c59111b"
         }
       ]
     }

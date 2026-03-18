@@ -67,6 +67,14 @@ Known issues:
 ## Shared Knowledge
 <!-- Auto-populated after each round with validated findings -->
 
+### Round 1 Validated Findings
+1. **Radix sort base 65536 (Researcher A):** LSD radix sort with 2 explicit 16-bit passes achieves 0.4261s — best pure-Python algorithmic approach. Stable sort.
+2. **Comparison-sort ceiling (Researcher A):** Optimizing comparison sorts (merge sort variants) yields only ~15% improvement over baseline — the path to big gains is non-comparison sorts.
+3. **Counting sort for bounded ranges (Researcher B):** Counting sort achieves 0.5462s but is sensitive to value range (10M count array allocation). Uses extend([val]*count) for C-level bulk output.
+4. **array.array anti-pattern (Researcher B):** array.array element access in Python is slower due to boxing/unboxing — do not use for sorting.
+5. **C-level Timsort floor (Researcher C):** sorted()/list.sort() at 0.14s is ~3x faster than any pure-Python sort — this is the practical performance ceiling.
+6. **Bucket sort anti-pattern (Researcher C):** Pre-bucketing does not help Timsort — the distribution overhead exceeds the sorting benefit.
+
 ## Context & References
 - Python's built-in `sorted()` uses Timsort -- highly optimized C implementation, typically ~0.18s for 1M integers
 - Using `sorted()` is allowed but the goal is to learn what algorithmic choices matter
@@ -82,3 +90,6 @@ Known issues:
 <!-- Auto-maintained by Conference Chair. Do not edit manually. -->
 | Round | Researcher | Best Metric | Key Finding | Status |
 |-------|-----------|-------------|-------------|--------|
+| 1 | A | 0.4261s | LSD radix sort base 65536, 2-pass explicit | target_reached |
+| 1 | B | 0.5462s | Counting sort with extend([val]*count) | completed |
+| 1 | C | 0.1431s | Python built-in list.sort() (C Timsort) | target_reached |

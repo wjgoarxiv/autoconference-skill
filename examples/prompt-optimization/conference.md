@@ -74,7 +74,13 @@ Common failure modes:
 6. **Triple combination is optimal (all researchers, validated):** Decision rules + structured JSON output + 5 targeted few-shot examples = 94% (47/50). Order-independent — all 3 researchers arrived at the same result independently regardless of combination order.
 7. **Diminishing returns from >5 examples confirmed (Researcher B, validated):** Tested with 6 examples (Round 1) and 7 examples (Round 2). 5 is the sweet spot. Round 1 reviewer challenge addressed.
 8. **No explicit reasoning anti-pattern extends broadly (Researcher C, validated):** Confidence routing and elimination-based classification are also ineffective. The anti-pattern covers: CoT, multi-pass, confidence routing, elimination-based, and negative instruction lists.
-9. **94% is locally optimal (challenged):** 9 independent micro-optimization attempts across all 3 researchers failed to improve beyond 94%. The remaining 3 errors (IDs 39, 44, 49) are genuinely ambiguous. However, fundamentally different framings were not explored — radical departures could potentially break through.
+9. **94% is locally optimal (challenged -> validated in Round 3):** 9 independent micro-optimization attempts across all 3 researchers failed to improve beyond 94%. The remaining 3 errors (IDs 39, 44, 49) are genuinely ambiguous. However, fundamentally different framings were not explored — radical departures could potentially break through.
+
+### Round 3 Validated Findings (ENDGAME)
+10. **94% is the confirmed ceiling (all researchers, validated):** 24 total failed attempts across Rounds 2-3 (15 in Round 3 alone). The remaining 3 errors (IDs 39, 44, 49) are genuinely ambiguous category boundary cases that prompt engineering cannot resolve.
+11. **Ablation confirms triple combination necessity (Researcher B, validated):** Removing examples from the triple combination regresses from 94% to 90%. Each component serves a distinct purpose.
+12. **Section ordering irrelevant (Researcher A, validated):** Prompt section order has no effect on accuracy.
+13. **Confidence field optional (Researcher C, validated):** Include for downstream utility, not for accuracy.
 
 ## Context & References
 - test_cases.json contains 50 labeled tickets with ground truth categories
@@ -95,3 +101,6 @@ Common failure modes:
 | 2 | A | 94.0% | Triple combination (rules+JSON+examples) = 94%, target exceeded | completed |
 | 2 | B | 94.0% | Confirmed >5 examples has no effect; triple combination order-independent | completed |
 | 2 | C | 94.0% | Confidence routing and elimination classification both ineffective | completed |
+| 3 | A | 94.0% | 5 EXPLOIT attempts all at 94%; section reordering no effect | converged |
+| 3 | B | 94.0% | Ablation: removing examples regresses to 90%; all components necessary | converged |
+| 3 | C | 94.0% | Two-field JSON, table format, XML tags, decisiveness all no effect | converged |

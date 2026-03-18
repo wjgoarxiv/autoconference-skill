@@ -47,21 +47,33 @@
       "type": "file"
     },
     {
+      "path": "examples/prompt-optimization/conference.md",
+      "accessCount": 11,
+      "lastAccessed": 1773815599548,
+      "type": "file"
+    },
+    {
       "path": "examples/skill-elaboration/conference.md",
       "accessCount": 8,
       "lastAccessed": 1773815301564,
       "type": "file"
     },
     {
-      "path": "examples/prompt-optimization/conference.md",
-      "accessCount": 8,
-      "lastAccessed": 1773815330168,
-      "type": "file"
-    },
-    {
       "path": "README.md",
       "accessCount": 7,
       "lastAccessed": 1773808072029,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference_results.tsv",
+      "accessCount": 7,
+      "lastAccessed": 1773815621763,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference_events.jsonl",
+      "accessCount": 7,
+      "lastAccessed": 1773815644530,
       "type": "file"
     },
     {
@@ -83,9 +95,27 @@
       "type": "file"
     },
     {
-      "path": "examples/prompt-optimization/conference_results.tsv",
+      "path": "examples/prompt-optimization/researcher_A_log.md",
       "accessCount": 5,
-      "lastAccessed": 1773815352775,
+      "lastAccessed": 1773815440556,
+      "type": "file"
+    },
+    {
+      "path": "examples/code-optimization/conference.md",
+      "accessCount": 5,
+      "lastAccessed": 1773815493221,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_A_results.tsv",
+      "accessCount": 5,
+      "lastAccessed": 1773815498946,
+      "type": "file"
+    },
+    {
+      "path": "examples/code-optimization/sort.py",
+      "accessCount": 5,
+      "lastAccessed": 1773815643371,
       "type": "file"
     },
     {
@@ -101,15 +131,27 @@
       "type": "directory"
     },
     {
-      "path": "examples/prompt-optimization/researcher_A_log.md",
+      "path": "examples/prompt-optimization/researcher_B_log.md",
       "accessCount": 4,
-      "lastAccessed": 1773815151662,
+      "lastAccessed": 1773815461450,
       "type": "file"
     },
     {
-      "path": "examples/prompt-optimization/researcher_A_results.tsv",
+      "path": "examples/prompt-optimization/researcher_C_log.md",
       "accessCount": 4,
-      "lastAccessed": 1773815227274,
+      "lastAccessed": 1773815481899,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_B_results.tsv",
+      "accessCount": 4,
+      "lastAccessed": 1773815509600,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_C_results.tsv",
+      "accessCount": 4,
+      "lastAccessed": 1773815517950,
       "type": "file"
     },
     {
@@ -131,12 +173,6 @@
       "type": "file"
     },
     {
-      "path": "examples/code-optimization/sort.py",
-      "accessCount": 3,
-      "lastAccessed": 1773813148084,
-      "type": "file"
-    },
-    {
       "path": "examples/literature-review/researcher_A_log.md",
       "accessCount": 3,
       "lastAccessed": 1773814945944,
@@ -152,36 +188,6 @@
       "path": "examples/literature-review/researcher_C_log.md",
       "accessCount": 3,
       "lastAccessed": 1773814992811,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/conference_events.jsonl",
-      "accessCount": 3,
-      "lastAccessed": 1773815068463,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_B_log.md",
-      "accessCount": 3,
-      "lastAccessed": 1773815182691,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_C_log.md",
-      "accessCount": 3,
-      "lastAccessed": 1773815215082,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_B_results.tsv",
-      "accessCount": 3,
-      "lastAccessed": 1773815234901,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/researcher_C_results.tsv",
-      "accessCount": 3,
-      "lastAccessed": 1773815241565,
       "type": "file"
     },
     {
@@ -242,12 +248,6 @@
       "path": "templates/research-synthesis.md",
       "accessCount": 2,
       "lastAccessed": 1773808211311,
-      "type": "file"
-    },
-    {
-      "path": "examples/code-optimization/conference.md",
-      "accessCount": 2,
-      "lastAccessed": 1773813147654,
       "type": "file"
     },
     {
