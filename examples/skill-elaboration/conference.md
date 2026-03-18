@@ -62,6 +62,22 @@ Baseline scores:
 ## Shared Knowledge
 <!-- Auto-populated after each round with validated findings -->
 
+### Round 1 Validated Findings
+1. **Procedural equipment scanning:** Grid-based, size-ordered identification (largest enclosed shapes first, then circular symbols on pipe runs, then inline symbols) outperforms detailed symbol disambiguation tables
+2. **ISA-5.1 tag conventions:** Equipment IDs use letter prefix (equipment type) + area number + sequence number format (e.g., P-101, T-201, V-301)
+3. **Connection topology:** Build equipment-to-equipment adjacency list, derive streams from connections -- graph-based approach is more robust than pattern-based bypass detection
+4. **Flow direction inference:** Use arrows on lines, gravity direction, pump discharge orientation to determine flow direction for correct stream numbering
+5. **Structured JSON schema:** Force explicit enumeration of equipment and streams in structured JSON format rather than prose descriptions
+6. **Inclusion-first classification:** Include all pipe connections as streams; exclude only dashed lines (instrument signals). When in doubt, include.
+7. **Cross-reference validation:** Build equipment-stream matrix; flag equipment with < 2 connections (inlet + outlet) for re-scanning to catch missing streams
+
+### Round 2 Validated Findings
+8. **3-phase workflow architecture:** Equipment Scan -> Stream Derivation -> Cross-Reference Validation is the core analysis pattern, validated independently by all three researchers
+9. **Domain-specific equipment symbols:** Add generalizable descriptions for process-specific equipment types (e.g., "settling/separation equipment" for clarifiers, "aeration/mixing equipment" for blowers)
+10. **Categorized stream numbering:** Type-based prefixes (S-1xx process, S-2xx sludge, S-3xx recirculation, S-4xx utilities) for systematic numbering per ISA conventions
+11. **Confidence-based re-examination:** Score confidence per item; re-examine low-confidence items in a second pass to catch marginal detections
+12. **Phased output structure:** JSON output mirroring analysis phases enforces workflow compliance and prevents skipped steps
+
 ## Context & References
 - Evaluation harness: `evaluate.py`
 - Annotation script: `annotate_pid.py`
@@ -75,3 +91,9 @@ Baseline scores:
 <!-- Auto-maintained by Conference Chair. Do not edit manually. -->
 | Round | Researcher | Best Metric | Key Finding | Status |
 |-------|-----------|-------------|-------------|--------|
+| 1 | A | 82.5% | Procedural equipment scanning (grid, size-ordered) | completed |
+| 1 | B | 82.5% | Connection topology (adjacency graph) | completed |
+| 1 | C | 82.5% | Inclusion-first classification + cross-ref validation | completed |
+| 2 | A | 94.5% | Integrated 3-phase workflow + domain equipment symbols | target_reached |
+| 2 | B | 94.5% | Categorized stream numbering + discovery pipeline | target_reached |
+| 2 | C | 94.5% | Phased output structure + confidence re-examination | target_reached |

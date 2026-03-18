@@ -68,7 +68,24 @@ Initial taxonomy coverage:
 - **Adherence & Consistency:** 0 papers -- gap
 
 ## Shared Knowledge
-<!-- Auto-populated after each round with validated findings -->
+
+### Round 1 Validated Findings
+
+1. **Weight/Fat Loss (VALIDATED):** Morning pre-breakfast exercise maximizes 24h fat oxidation (717 vs 432 kcal/d, Iwayama 2015). Sex-specific effects: women lose more abdominal fat with AM (-10% vs -3%, Arciero 2022); men oxidize more fat with PM (+6% vs +1%). Willis 2020 RCT (n=88) shows comparable total weight loss AM vs PM.
+
+2. **Cardiovascular Health (VALIDATED):** Acute BP effects are similar AM/PM (Brito 2023 meta-analysis). Chronic evening training reduces BP more effectively in treated hypertension via reduced sympathetic modulation and improved baroreflex sensitivity (Melo de Souza 2024, Fairbrother 2014).
+
+3. **Metabolic Health (VALIDATED):** Population-dependent direction. Evening/afternoon exercise improves glycemic control in T2D — morning HIIT actually increases glucose acutely (Savikj 2019, Diabetologia). This is explained by inverted circadian insulin sensitivity in T2D. In metabolic syndrome (non-T2D), morning training reduces insulin resistance more (Morales-Palomo 2024).
+
+4. **Muscle Performance (VALIDATED, deepened):** PM advantage for hypertrophy over 24 weeks (Kuusmaa 2016). PM performance advantage 3-21% for power/anaerobic capacity (Chtourou 2012). Strength gains (1RM) comparable between AM and PM.
+
+5. **Hormonal Response (VALIDATED):** PM hormonal environment favors hypertrophy — lower cortisol:testosterone ratio. AM has higher testosterone but also higher cortisol, which counteracts anabolic benefit (Hayes 2010, Sedliak 2007, Ahtiainen 2015, Kraemer 2004).
+
+6. **Circadian Rhythm (CHALLENGED — caveat noted):** Morning exercise phase-advances human circadian clock by ~0.6h (Youngstedt 2019). Effect is chronotype-dependent: late chronotypes benefit from both AM and PM exercise; early chronotypes may be harmed by PM exercise (Thomas 2020, JCI Insight). Animal data (Wolff 2012) shows larger peripheral clock shifts (up to 8h) but translatability is limited.
+
+7. **Sleep Quality (VALIDATED):** AM exercise shortens sleep onset latency and improves subjective quality (Stutz 2023 systematic review). PM exercise does NOT disrupt sleep if ended >1h before bed (Frimpong 2021 meta-analysis) and may increase slow-wave sleep (Myllymaki 2011). Clinically actionable: the >1h buffer is the key threshold.
+
+8. **Adherence & Consistency (CHALLENGED — evidence level caveat):** Consistent timing appears more important than specific time (Schumacher 2023, feasibility study). AM adherence slightly higher (94% vs 87%, Brooker 2023). However, most evidence is from small feasibility studies or observational data (Willis 2020 NHANES). Large-scale RCTs specifically comparing AM vs PM long-term adherence are lacking.
 
 ## Context & References
 - Exercise timing research has accelerated since 2019 with wearable-derived data
@@ -82,3 +99,7 @@ Initial taxonomy coverage:
 <!-- Auto-maintained by Conference Chair. Do not edit manually. -->
 | Round | Researcher | Best Metric | Key Finding | Status |
 |-------|-----------|-------------|-------------|--------|
+| 1 | A | 5/8 | Added Weight/Fat Loss, Cardiovascular, Metabolic Health (12 papers) | completed |
+| 1 | B | 4/8 | Added Hormonal Response, Circadian Rhythm; deepened Muscle Performance (11 papers) | completed |
+| 1 | C | 4/8 | Added Sleep Quality, Adherence & Consistency (11 papers) | completed |
+| 1 | ALL | 8/8 | TARGET REACHED — all 8 categories covered with >=2 papers each | CONVERGED |
