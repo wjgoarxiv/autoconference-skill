@@ -48,15 +48,16 @@ def setup_rcparams():
 
 
 def load_conference_results(tsv_path):
-    """Load conference_results.tsv and return per-researcher iteration data."""
+    """Load conference_results.tsv with global iteration counter across rounds."""
     researchers = {}
     with open(tsv_path, "r") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rid = row["researcher"]
             if rid not in researchers:
-                researchers[rid] = {"iterations": [], "metrics": [], "statuses": []}
-            researchers[rid]["iterations"].append(int(row["iteration"]))
+                researchers[rid] = {"global_iters": [], "metrics": [], "statuses": []}
+            idx = len(researchers[rid]["global_iters"])
+            researchers[rid]["global_iters"].append(idx)
             researchers[rid]["metrics"].append(float(row["metric_value"]))
             researchers[rid]["statuses"].append(row["status"])
     return researchers
@@ -79,7 +80,7 @@ def main():
     fig, ax = plt.subplots()
 
     for rid, data in sorted(researchers.items()):
-        iters = data["iterations"]
+        iters = data["global_iters"]
         metrics = data["metrics"]
 
         # Best-so-far trajectory (maximize)
@@ -93,7 +94,8 @@ def main():
         ax.plot(iters, best_so_far,
                 marker=markers.get(rid, "o"),
                 color=colors.get(rid, "#333"),
-                linewidth=2, markersize=6,
+                linestyle=":", linewidth=2, markersize=6,
+                alpha=1.0,
                 label=f"Researcher {rid}")
 
     # Target line
