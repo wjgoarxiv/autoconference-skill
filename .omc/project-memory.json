@@ -59,6 +59,12 @@
       "type": "file"
     },
     {
+      "path": "examples/prompt-optimization/conference_events.jsonl",
+      "accessCount": 8,
+      "lastAccessed": 1773815748863,
+      "type": "file"
+    },
+    {
       "path": "README.md",
       "accessCount": 7,
       "lastAccessed": 1773808072029,
@@ -68,12 +74,6 @@
       "path": "examples/prompt-optimization/conference_results.tsv",
       "accessCount": 7,
       "lastAccessed": 1773815621763,
-      "type": "file"
-    },
-    {
-      "path": "examples/prompt-optimization/conference_events.jsonl",
-      "accessCount": 7,
-      "lastAccessed": 1773815644530,
       "type": "file"
     },
     {
