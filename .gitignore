@@ -6,6 +6,7 @@ __pycache__/
 dist/
 build/
 .eggs/
+.pytest_cache/
 
 # others
 .omc/
@@ -20,11 +21,21 @@ Thumbs.db
 *.swp
 *.swo
 
-# Research outputs (generated, not committed)
+# OMC state
+.omc/
+
+# Conference outputs (generated, not committed)
 *_log.md
 *_results.tsv
+conference_results.tsv
 conference_events.jsonl
 synthesis.md
 final_report.md
 poster_session_*.md
 peer_review_*.md
+worktrees/
+
+# Per-researcher artifacts (generated during code conferences)
+sort_*.py
+sort_best.py
+bench_researcher.py
