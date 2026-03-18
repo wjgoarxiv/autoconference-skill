@@ -1,0 +1,34 @@
+round	researcher	iteration	metric_value	delta	delta_pct	status	description	peer_review_verdict	timestamp
+1	A	0	34.5	-	-	baseline	Baseline: scale crystal to 3.6 nm, water everywhere	challenged	2026-03-19T10:00:00Z
+1	A	1	40.5	+6.0	+17.4%	kept	Reduce scaling to 3.5 nm, still water everywhere	challenged	2026-03-19T10:10:00Z
+1	A	2	65.0	+24.5	+60.5%	kept	Try rep 3 (too large crystal), water everywhere	challenged	2026-03-19T10:20:00Z
+1	A	3	34.5	-30.5	-46.9%	reverted	Back to rep 2, scale to 3.6, partial water filter 30%	challenged	2026-03-19T10:30:00Z
+1	B	0	65.0	-	-	baseline	Baseline: rep 1 1 1 (tiny crystal), water everywhere	challenged	2026-03-19T10:40:00Z
+1	B	1	50.0	-15.0	-23.1%	reverted	Rep 1 1 2, force box to 3.6 nm, water everywhere	challenged	2026-03-19T10:50:00Z
+1	B	2	34.5	-30.5	-46.9%	reverted	Rep 2 2 2 but scale to 3.6, water everywhere	challenged	2026-03-19T11:00:00Z
+1	B	3	65.0	+0.0	+0.0%	kept	Rep 2, native dims, but water everywhere	challenged	2026-03-19T11:10:00Z
+1	C	0	34.5	-	-	baseline	Rep 2, scale to 3.6, water everywhere	challenged	2026-03-19T11:20:00Z
+1	C	1	34.5	+0.0	+0.0%	kept	Rep 2, scale to 3.6, partial water filter 50%	challenged	2026-03-19T11:30:00Z
+1	C	2	40.5	+6.0	+17.4%	kept	Rep 2, scale to 3.5, partial water filter 70%	challenged	2026-03-19T11:40:00Z
+1	C	3	65.0	+24.5	+60.5%	kept	Rep 2, native dims, but still water in slab	challenged	2026-03-19T11:50:00Z
+2	A	0	65.0	+0.0	+0.0%	kept	Native crystal dims, but water still in slab	validated	2026-03-19T12:00:00Z
+2	A	1	65.0	+0.0	+0.0%	kept	Native dims, partial water filter 60%	validated	2026-03-19T12:10:00Z
+2	A	2	65.0	+0.0	+0.0%	kept	Native dims, partial water filter 90%	validated	2026-03-19T12:20:00Z
+2	A	3	99.9	+34.9	+53.7%	kept	Native dims, proper water exclusion (FIXED)	validated	2026-03-19T12:30:00Z
+2	B	0	75.4	+10.4	+16.0%	kept	Scale to 3.5, proper water exclusion	validated	2026-03-19T12:40:00Z
+2	B	1	78.4	+3.0	+4.0%	kept	Scale to 3.45, proper water exclusion	validated	2026-03-19T12:50:00Z
+2	B	2	99.9	+21.5	+27.4%	kept	Native dims, proper water exclusion (FIXED)	validated	2026-03-19T13:00:00Z
+2	B	3	99.8	-0.1	-0.1%	reverted	Native dims, proper exclusion, tuned density	validated	2026-03-19T13:10:00Z
+2	C	0	75.4	+10.4	+16.0%	kept	Scale to 3.5, proper water exclusion	validated	2026-03-19T13:20:00Z
+2	C	1	78.4	+3.0	+4.0%	kept	Scale to 3.45, proper water exclusion	validated	2026-03-19T13:30:00Z
+2	C	2	99.9	+21.5	+27.4%	kept	Native crystal dims, proper exclusion (FIXED)	validated	2026-03-19T13:40:00Z
+2	C	3	99.9	+0.0	+0.0%	kept	Native dims, proper exclusion, density 1000	validated	2026-03-19T13:50:00Z
+3	A	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 120	validated	2026-03-19T14:00:00Z
+3	A	1	99.8	-0.1	-0.1%	reverted	Native dims + exclusion, density 998	validated	2026-03-19T14:10:00Z
+3	A	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	validated	2026-03-19T14:20:00Z
+3	B	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 220	validated	2026-03-19T14:30:00Z
+3	B	1	99.9	+0.0	+0.0%	kept	Native dims + exclusion, density 1000	validated	2026-03-19T14:40:00Z
+3	B	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	validated	2026-03-19T14:50:00Z
+3	C	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 320	validated	2026-03-19T15:00:00Z
+3	C	1	99.9	+0.0	+0.0%	kept	Native dims + exclusion, density 999	validated	2026-03-19T15:10:00Z
+3	C	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	validated	2026-03-19T15:20:00Z

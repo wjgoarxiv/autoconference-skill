@@ -1,0 +1,26 @@
+{
+  "composite": 65.0,
+  "structural": 100.0,
+  "density": 0.0,
+  "geometric": 100.0,
+  "pbc": 100.0,
+  "slab_exclusion": 0.0,
+  "crystal_integrity": 100.0,
+  "details": {
+    "natoms": 1278,
+    "n_hydrate_atoms": 816,
+    "n_waters": 154,
+    "n_water_in_slab": 109,
+    "max_coord_deviation_nm": 9.8e-05,
+    "box": [
+      1.7121,
+      1.7121,
+      5.0
+    ],
+    "slab_z_range": [
+      0.7879,
+      4.2121
+    ],
+    "water_density_kg_m3": 291.4
+  }
+}

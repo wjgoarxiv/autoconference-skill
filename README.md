@@ -19,6 +19,19 @@
 > [!NOTE]
 > A Claude Code skill that orchestrates N parallel autoresearch agents in structured conference rounds -- with adversarial peer review and cross-researcher synthesis. Write a `conference.md` defining your research goal, and the conference handles hypothesis generation, experimentation, evaluation, and multi-agent iteration. Built on [autoresearch-skill](https://github.com/wjgoarxiv/autoresearch-skill). Works with Claude Code, Codex CLI, and Gemini CLI.
 
+### Example: sII Hydrate + Water .gro Generation
+
+| Round 1 (Naive) | Final (Converged) |
+|:---:|:---:|
+| ![Round 1](./examples/sii-hydrate-generation/snapshot_round1.png) | ![Final](./examples/sii-hydrate-generation/snapshot_final.png) |
+| Composite: 34.5 — water in slab | Composite: 99.9 — clean separation |
+
+| Convergence | Sub-metrics |
+|:---:|:---:|
+| ![Convergence](./examples/sii-hydrate-generation/plot_composite_convergence.png) | ![Sub-metrics](./examples/sii-hydrate-generation/plot_submetric_breakdown.png) |
+
+> 33 iterations across 3 researchers and 3 rounds. The conference learns to preserve crystal structure and exclude water from the hydrate slab. [See full example →](./examples/sii-hydrate-generation/)
+
 ## Features
 
 - **Multi-Agent Orchestration** -- N researchers explore different parts of the search space in parallel, then share findings after each round.

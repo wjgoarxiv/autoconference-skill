@@ -18,6 +18,19 @@
 > [!NOTE]
 > N개의 병렬 autoresearch 에이전트를 구조화된 컨퍼런스 라운드로 조율하는 Claude Code 스킬입니다 -- 적대적 동료 검토와 교차 연구자 합성을 포함합니다. 연구 목표를 정의하는 `conference.md`를 작성하면 컨퍼런스가 가설 생성, 실험, 평가, 다중 에이전트 반복을 처리합니다. [autoresearch-skill](https://github.com/wjgoarxiv/autoresearch-skill) 기반. Claude Code, Codex CLI, Gemini CLI에서 작동합니다.
 
+### 예시: sII 수화물 + 물 .gro 파일 생성
+
+| 라운드 1 (초기) | 최종 (수렴) |
+|:---:|:---:|
+| ![라운드 1](./examples/sii-hydrate-generation/snapshot_round1.png) | ![최종](./examples/sii-hydrate-generation/snapshot_final.png) |
+| 복합 점수: 34.5 — 슬랩 내 물 존재 | 복합 점수: 99.9 — 깨끗한 분리 |
+
+| 수렴 곡선 | 세부 지표 |
+|:---:|:---:|
+| ![수렴](./examples/sii-hydrate-generation/plot_composite_convergence.png) | ![세부](./examples/sii-hydrate-generation/plot_submetric_breakdown.png) |
+
+> 3명의 연구자가 3라운드에 걸쳐 33회 반복. 컨퍼런스가 결정 구조 보존과 수화물 슬랩에서의 물 배제를 학습합니다. [전체 예시 보기 →](./examples/sii-hydrate-generation/)
+
 ## TL;DR
 
 연구 목표를 설명하는 `conference.md`를 작성하면, autoconference가 구조화된 라운드에서 경쟁하는 N개의 병렬 autoresearch 에이전트를 생성합니다. 각 라운드 후 리뷰어 에이전트가 발견 사항을 적대적으로 검증하며, 검증된 인사이트는 모든 연구자에게 공유됩니다. 최종적으로 합성기가 단순히 승자를 선택하는 것이 아니라 상호 보완적인 발견들을 결합한 통합 결과물을 생성합니다.
