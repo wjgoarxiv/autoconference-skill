@@ -1,7 +1,0 @@
-{
-  "tool_name": "Read",
-  "tool_input_preview": "{\"file_path\":\"/Users/woojin/.claude/projects/-Users-woojin-Desktop-02-Areas-01-Codes-automation-15-autoconference-skill/memory/MEMORY.md\"}",
-  "error": "File does not exist. Note: your current working directory is /Users/woojin/Desktop/02_Areas/01_Codes_automation/15_autoconference-skill.",
-  "timestamp": "2026-03-17T17:31:48.741Z",
-  "retry_count": 2
-}
