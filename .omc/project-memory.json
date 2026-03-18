@@ -48,8 +48,20 @@
     },
     {
       "path": "README.md",
+      "accessCount": 7,
+      "lastAccessed": 1773808072029,
+      "type": "file"
+    },
+    {
+      "path": "SKILL.md",
       "accessCount": 6,
-      "lastAccessed": 1773806854518,
+      "lastAccessed": 1773808194229,
+      "type": "file"
+    },
+    {
+      "path": "assets/conference_template.md",
+      "accessCount": 5,
+      "lastAccessed": 1773808209493,
       "type": "file"
     },
     {
@@ -59,22 +71,28 @@
       "type": "file"
     },
     {
-      "path": "SKILL.md",
-      "accessCount": 3,
-      "lastAccessed": 1773805856650,
-      "type": "file"
-    },
-    {
-      "path": "assets/conference_template.md",
-      "accessCount": 2,
-      "lastAccessed": 1773805662885,
-      "type": "file"
-    },
-    {
       "path": "",
-      "accessCount": 2,
-      "lastAccessed": 1773805850910,
+      "accessCount": 4,
+      "lastAccessed": 1773808205557,
       "type": "directory"
+    },
+    {
+      "path": "templates/code-performance.md",
+      "accessCount": 3,
+      "lastAccessed": 1773808210128,
+      "type": "file"
+    },
+    {
+      "path": "templates/quick-conference.md",
+      "accessCount": 3,
+      "lastAccessed": 1773808211439,
+      "type": "file"
+    },
+    {
+      "path": "scripts/init_conference.py",
+      "accessCount": 3,
+      "lastAccessed": 1773808237031,
+      "type": "file"
     },
     {
       "path": "2026-03-18_REPO-DECOR-PROMPT.md",
@@ -89,9 +107,51 @@
       "type": "file"
     },
     {
+      "path": "references/conference-protocol.md",
+      "accessCount": 2,
+      "lastAccessed": 1773808076538,
+      "type": "file"
+    },
+    {
+      "path": "references/agent-prompts.md",
+      "accessCount": 2,
+      "lastAccessed": 1773808076693,
+      "type": "file"
+    },
+    {
+      "path": "references/results-logging.md",
+      "accessCount": 2,
+      "lastAccessed": 1773808076905,
+      "type": "file"
+    },
+    {
       "path": "assets/synthesis_template.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768405992,
+      "accessCount": 2,
+      "lastAccessed": 1773808080851,
+      "type": "file"
+    },
+    {
+      "path": "evals/evals.json",
+      "accessCount": 2,
+      "lastAccessed": 1773808085182,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_init_conference.py",
+      "accessCount": 2,
+      "lastAccessed": 1773808085365,
+      "type": "file"
+    },
+    {
+      "path": "templates/prompt-optimization.md",
+      "accessCount": 2,
+      "lastAccessed": 1773808210366,
+      "type": "file"
+    },
+    {
+      "path": "templates/research-synthesis.md",
+      "accessCount": 2,
+      "lastAccessed": 1773808211311,
       "type": "file"
     },
     {
@@ -101,69 +161,9 @@
       "type": "file"
     },
     {
-      "path": "templates/quick-conference.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768430251,
-      "type": "file"
-    },
-    {
-      "path": "templates/prompt-optimization.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768439012,
-      "type": "file"
-    },
-    {
-      "path": "templates/code-performance.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768447179,
-      "type": "file"
-    },
-    {
-      "path": "templates/research-synthesis.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768456567,
-      "type": "file"
-    },
-    {
       "path": "references/core-principles.md",
       "accessCount": 1,
       "lastAccessed": 1773768474634,
-      "type": "file"
-    },
-    {
-      "path": "tests/test_init_conference.py",
-      "accessCount": 1,
-      "lastAccessed": 1773768484306,
-      "type": "file"
-    },
-    {
-      "path": "references/agent-prompts.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768490094,
-      "type": "file"
-    },
-    {
-      "path": "references/results-logging.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768524557,
-      "type": "file"
-    },
-    {
-      "path": "scripts/init_conference.py",
-      "accessCount": 1,
-      "lastAccessed": 1773768536712,
-      "type": "file"
-    },
-    {
-      "path": "evals/evals.json",
-      "accessCount": 1,
-      "lastAccessed": 1773768611019,
-      "type": "file"
-    },
-    {
-      "path": "references/conference-protocol.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768618906,
       "type": "file"
     },
     {
