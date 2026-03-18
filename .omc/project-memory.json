@@ -95,6 +95,12 @@
       "type": "file"
     },
     {
+      "path": "examples/code-optimization/sort.py",
+      "accessCount": 3,
+      "lastAccessed": 1773813148084,
+      "type": "file"
+    },
+    {
       "path": "2026-03-18_REPO-DECOR-PROMPT.md",
       "accessCount": 2,
       "lastAccessed": 1773805856310,
@@ -155,6 +161,30 @@
       "type": "file"
     },
     {
+      "path": "examples/code-optimization/conference.md",
+      "accessCount": 2,
+      "lastAccessed": 1773813147654,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference.md",
+      "accessCount": 2,
+      "lastAccessed": 1773813149679,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review/conference.md",
+      "accessCount": 2,
+      "lastAccessed": 1773813153781,
+      "type": "file"
+    },
+    {
+      "path": "examples/skill-elaboration/conference.md",
+      "accessCount": 2,
+      "lastAccessed": 1773813161886,
+      "type": "file"
+    },
+    {
       "path": "assets/report_template.md",
       "accessCount": 1,
       "lastAccessed": 1773768413161,
@@ -188,6 +218,126 @@
       "path": "cover.png",
       "accessCount": 1,
       "lastAccessed": 1773806915647,
+      "type": "file"
+    },
+    {
+      "path": "examples/code-optimization/benchmark.py",
+      "accessCount": 1,
+      "lastAccessed": 1773813148300,
+      "type": "file"
+    },
+    {
+      "path": "examples/code-optimization/run_iterations.py",
+      "accessCount": 1,
+      "lastAccessed": 1773813148696,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/test_cases.json",
+      "accessCount": 1,
+      "lastAccessed": 1773813150163,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/evaluate.py",
+      "accessCount": 1,
+      "lastAccessed": 1773813150536,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review",
+      "accessCount": 1,
+      "lastAccessed": 1773813154110,
+      "type": "directory"
+    },
+    {
+      "path": "examples/skill-elaboration/original_skill/SKILL.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813161977,
+      "type": "file"
+    },
+    {
+      "path": "examples/skill-elaboration/evaluate.py",
+      "accessCount": 1,
+      "lastAccessed": 1773813162296,
+      "type": "file"
+    },
+    {
+      "path": "examples/skill-elaboration/annotate_pid.py",
+      "accessCount": 1,
+      "lastAccessed": 1773813162721,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review/visualize.py",
+      "accessCount": 1,
+      "lastAccessed": 1773813164735,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_A_log.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813172039,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_B_log.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813173801,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_C_log.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813175831,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_A_results.tsv",
+      "accessCount": 1,
+      "lastAccessed": 1773813177860,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_B_results.tsv",
+      "accessCount": 1,
+      "lastAccessed": 1773813178743,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/researcher_C_results.tsv",
+      "accessCount": 1,
+      "lastAccessed": 1773813179640,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review/researcher_A_log.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813180144,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference_results.tsv",
+      "accessCount": 1,
+      "lastAccessed": 1773813180943,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review/researcher_B_log.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813181011,
+      "type": "file"
+    },
+    {
+      "path": "examples/literature-review/researcher_C_log.md",
+      "accessCount": 1,
+      "lastAccessed": 1773813182050,
+      "type": "file"
+    },
+    {
+      "path": "examples/prompt-optimization/conference_events.jsonl",
+      "accessCount": 1,
+      "lastAccessed": 1773813183605,
       "type": "file"
     }
   ],

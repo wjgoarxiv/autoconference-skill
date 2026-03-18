@@ -1,6 +1,8 @@
-{"t":0,"agent":"aa5e303","agent_type":"Explore","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"a053fae","agent_type":"Explore","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"aa5e303","agent_type":"Explore","event":"agent_stop","success":true,"duration_ms":44839}
-{"t":0,"agent":"a053fae","agent_type":"Explore","event":"agent_stop","success":true,"duration_ms":48931}
-{"t":0,"agent":"a045426","agent_type":"Plan","event":"agent_start","parent_mode":"none"}
-{"t":0,"agent":"a045426","agent_type":"Plan","event":"agent_stop","success":true,"duration_ms":205152}
+{"t":0,"agent":"a936fc7","agent_type":"deep-executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a76c1c2","agent_type":"deep-executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"064_autoconference-skill"}
+{"t":0,"agent":"a96183f","agent_type":"deep-executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"064_autoconference-skill"}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"064_autoconference-skill"}
+{"t":0,"agent":"a0ca886","agent_type":"deep-executor","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"064_autoconference-skill"}
