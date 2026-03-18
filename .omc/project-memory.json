@@ -47,6 +47,12 @@
       "type": "file"
     },
     {
+      "path": "README.md",
+      "accessCount": 6,
+      "lastAccessed": 1773806854518,
+      "type": "file"
+    },
+    {
       "path": "docs/superpowers/specs/2026-03-18-autoconference-design.md",
       "accessCount": 4,
       "lastAccessed": 1773768370712,
@@ -54,14 +60,8 @@
     },
     {
       "path": "SKILL.md",
-      "accessCount": 2,
-      "lastAccessed": 1773768677978,
-      "type": "file"
-    },
-    {
-      "path": "README.md",
-      "accessCount": 2,
-      "lastAccessed": 1773805654224,
+      "accessCount": 3,
+      "lastAccessed": 1773805856650,
       "type": "file"
     },
     {
@@ -72,14 +72,20 @@
     },
     {
       "path": "",
-      "accessCount": 1,
-      "lastAccessed": 1773768376156,
+      "accessCount": 2,
+      "lastAccessed": 1773805850910,
       "type": "directory"
     },
     {
+      "path": "2026-03-18_REPO-DECOR-PROMPT.md",
+      "accessCount": 2,
+      "lastAccessed": 1773805856310,
+      "type": "file"
+    },
+    {
       "path": "LICENSE",
-      "accessCount": 1,
-      "lastAccessed": 1773768386643,
+      "accessCount": 2,
+      "lastAccessed": 1773805895822,
       "type": "file"
     },
     {
@@ -161,15 +167,27 @@
       "type": "file"
     },
     {
-      "path": "2026-03-18_REPO-DECOR-PROMPT.md",
-      "accessCount": 1,
-      "lastAccessed": 1773805660757,
-      "type": "file"
-    },
-    {
       "path": "2026-03-18_PROMPT.md",
       "accessCount": 1,
       "lastAccessed": 1773805662549,
+      "type": "file"
+    },
+    {
+      "path": "generate_cover.py",
+      "accessCount": 1,
+      "lastAccessed": 1773806792300,
+      "type": "file"
+    },
+    {
+      "path": "README-Ko-KR.md",
+      "accessCount": 1,
+      "lastAccessed": 1773806887720,
+      "type": "file"
+    },
+    {
+      "path": "cover.png",
+      "accessCount": 1,
+      "lastAccessed": 1773806915647,
       "type": "file"
     }
   ],
