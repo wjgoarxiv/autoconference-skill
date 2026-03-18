@@ -46,7 +46,7 @@ canvas = Image.alpha_composite(canvas, grain_img)
 
 # 4. Fonts
 TITLE_SIZE = 180
-SUBTITLE_SIZE = 54
+SUBTITLE_SIZE = 60 
 
 try:
     font_title = ImageFont.truetype("/Users/woojin/Library/Fonts/JetBrainsMonoNerdFont-Bold.ttf", TITLE_SIZE)
@@ -60,7 +60,7 @@ except Exception:
         font_subtitle = ImageFont.truetype("/System/Library/Fonts/Supplemental/Courier New Bold.ttf", SUBTITLE_SIZE)
 
 TITLE_TEXT = "autoconference"
-SUBTITLE_TEXT = "Researchers compete, collaborate, and synthesize."
+SUBTITLE_TEXT = "Autoresearchers compete, collaborate, and synthesize."
 
 # 5. Measure text — retry with smaller size if too wide
 tmp = Image.new("RGBA", (W, H), (0, 0, 0, 0))
@@ -85,7 +85,7 @@ s_bbox = d.textbbox((0, 0), SUBTITLE_TEXT, font=font_subtitle)
 s_w = s_bbox[2] - s_bbox[0]
 s_h = s_bbox[3] - s_bbox[1]
 
-GAP = 60
+GAP = 120 
 total_h = t_h + GAP + s_h
 block_top = (H - total_h) // 2 - 30
 title_x = (W - t_w) // 2 - t_bbox[0]
