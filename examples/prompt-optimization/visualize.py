@@ -1,163 +1,114 @@
-"""Generate visualization for the prompt optimization research."""
+"""Generate visualization for the prompt optimization conference."""
+
+import csv
+from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import numpy as np
+from matplotlib import rcParams
+from matplotlib import font_manager
 
-# Real evaluation results
-versions = ["v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7"]
-labels = [
-    "Zero-shot\n(baseline)",
-    "Category\ndefinitions",
-    "3 few-shot\nexamples",
-    "Chain-of-\nthought",
-    "5 targeted\nexamples",
-    "JSON output\nformat",
-    "Decision\nrules",
-    "Optimized\nexamples",
-]
-accuracy = [68.0, 76.0, 80.0, 74.0, 84.0, 86.0, 90.0, 94.0]
-correct = [34, 38, 40, 37, 42, 43, 45, 47]
-kept = [True, True, True, False, True, True, True, True]
 
-# Error breakdown per category (for stacked bar)
-cat_names = ["Billing", "Account", "Bug Report", "Technical", "Returns", "General Inquiry"]
-errors_data = {
-    "Billing":         [6, 2, 2, 2, 1, 1, 1, 1],
-    "Account":         [4, 2, 2, 2, 1, 1, 0, 0],
-    "Bug Report":      [4, 4, 4, 3, 2, 1, 1, 1],
-    "Technical":       [0, 0, 0, 0, 2, 2, 1, 1],
-    "Returns":         [0, 2, 1, 2, 1, 1, 1, 0],
-    "General Inquiry": [2, 2, 1, 4, 1, 1, 1, 0],
-}
+def setup_rcparams():
+    rcParams['figure.figsize'] = 5, 4
+    rcParams['font.family'] = 'sans-serif'
+    available_fonts = set([f.name for f in font_manager.fontManager.ttflist])
+    if 'Pretendard' in available_fonts:
+        rcParams['font.sans-serif'] = ['Pretendard']
+    elif 'Arial' in available_fonts:
+        rcParams['font.sans-serif'] = ['Arial']
+    else:
+        print("WARNING: Pretendard and Arial not installed. Using default font.")
+    rcParams['axes.labelpad'] = 8
+    rcParams['xtick.major.pad'] = 7
+    rcParams['ytick.major.pad'] = 7
+    rcParams['xtick.minor.visible'] = True
+    rcParams['ytick.minor.visible'] = True
+    rcParams['xtick.major.width'] = 1
+    rcParams['ytick.major.width'] = 1
+    rcParams['xtick.minor.width'] = 0.5
+    rcParams['ytick.minor.width'] = 0.5
+    rcParams['xtick.major.size'] = 5
+    rcParams['ytick.major.size'] = 5
+    rcParams['xtick.minor.size'] = 3
+    rcParams['ytick.minor.size'] = 3
+    rcParams['xtick.color'] = 'black'
+    rcParams['ytick.color'] = 'black'
+    rcParams['font.size'] = 14
+    rcParams['axes.titlepad'] = 10
+    rcParams['axes.titleweight'] = 'normal'
+    rcParams['axes.titlesize'] = 18
+    rcParams['axes.labelweight'] = 'normal'
+    rcParams['xtick.labelsize'] = 12
+    rcParams['ytick.labelsize'] = 12
+    rcParams['axes.labelsize'] = 16
+    rcParams['xtick.direction'] = 'in'
+    rcParams['ytick.direction'] = 'in'
 
-fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-fig.patch.set_facecolor("#0f1117")
-fig.suptitle(
-    "Prompt Optimization: Customer Support Classifier\nAuto-Research Loop Results",
-    fontsize=18, fontweight="bold", color="white", y=0.98,
-)
 
-# ── Chart 1: Accuracy bar chart ──────────────────────────────────────────────
-ax1 = axes[0, 0]
-colors = ["#4a90d9" if k else "#d94a4a" for k in kept]
-bars = ax1.bar(range(len(labels)), accuracy, color=colors, width=0.6,
-               edgecolor="#1a1d27", linewidth=1.5)
-ax1.axhline(y=90, color="#ffcc00", linestyle="--", linewidth=1.5, alpha=0.8, label="Target: 90%")
+def load_conference_results(tsv_path):
+    """Load conference_results.tsv and return per-researcher iteration data."""
+    researchers = {}
+    with open(tsv_path, "r") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            rid = row["researcher"]
+            if rid not in researchers:
+                researchers[rid] = {"iterations": [], "metrics": [], "statuses": []}
+            researchers[rid]["iterations"].append(int(row["iteration"]))
+            researchers[rid]["metrics"].append(float(row["metric_value"]))
+            researchers[rid]["statuses"].append(row["status"])
+    return researchers
 
-for i, (acc, c) in enumerate(zip(accuracy, correct)):
-    ax1.text(i, acc + 1, f"{acc:.0f}%\n({c}/50)", ha="center", va="bottom",
-             fontsize=9, fontweight="bold", color="white")
 
-from matplotlib.patches import Patch
-legend_elements = [
-    Patch(facecolor="#4a90d9", label="Kept"),
-    Patch(facecolor="#d94a4a", label="Reverted"),
-    plt.Line2D([0], [0], color="#ffcc00", linestyle="--", linewidth=1.5, label="Target: 90%"),
-]
-ax1.legend(handles=legend_elements, loc="lower right", fontsize=9,
-           facecolor="#1a1d27", edgecolor="#2a2d37", labelcolor="white")
-ax1.set_xticks(range(len(labels)))
-ax1.set_xticklabels(labels, fontsize=8, color="#b0b8c8")
-ax1.set_ylabel("Accuracy (%)", fontsize=12, color="#b0b8c8")
-ax1.set_title("Classification Accuracy per Iteration", fontsize=14, fontweight="bold", color="white")
-ax1.set_ylim(0, 105)
-ax1.set_facecolor("#0f1117")
-ax1.tick_params(colors="#b0b8c8")
-for sp in ["top", "right"]:
-    ax1.spines[sp].set_visible(False)
-for sp in ["bottom", "left"]:
-    ax1.spines[sp].set_color("#2a2d37")
+def main():
+    here = Path(__file__).parent
+    tsv_path = here / "conference_results.tsv"
 
-# ── Chart 2: Accuracy trajectory ─────────────────────────────────────────────
-ax2 = axes[0, 1]
-best_so_far = []
-cur_best = accuracy[0]
-for i, (acc, k) in enumerate(zip(accuracy, kept)):
-    if k and acc > cur_best:
-        cur_best = acc
-    best_so_far.append(cur_best)
+    if not tsv_path.exists():
+        print(f"No conference_results.tsv found in {here}. Run the conference first.")
+        return
 
-ax2.plot(range(len(accuracy)), accuracy, "o-", color="#6a6d77", linewidth=1,
-         markersize=6, alpha=0.5, label="Each iteration")
-ax2.plot(range(len(accuracy)), best_so_far, "o-", color="#4adb8b", linewidth=2.5,
-         markersize=8, label="Best so far", zorder=5)
-ax2.axhline(y=90, color="#ffcc00", linestyle="--", linewidth=1.5, alpha=0.8)
+    setup_rcparams()
+    researchers = load_conference_results(tsv_path)
 
-ax2.annotate("REVERTED\n(CoT hurt accuracy)", xy=(3, 74), xytext=(3, 67),
-             fontsize=8, color="#d94a4a", ha="center", fontweight="bold",
-             arrowprops=dict(arrowstyle="->", color="#d94a4a"))
-ax2.annotate(f"Target met!\n{accuracy[6]:.0f}%", xy=(6, 90), xytext=(5, 95),
-             fontsize=9, color="#ffcc00", fontweight="bold",
-             arrowprops=dict(arrowstyle="->", color="#ffcc00"))
-ax2.annotate(f"Best: {accuracy[7]:.0f}%", xy=(7, 94), xytext=(7, 99),
-             fontsize=9, color="#4adb8b", fontweight="bold",
-             arrowprops=dict(arrowstyle="->", color="#4adb8b"))
+    colors = {"A": "#2563EB", "B": "#D97706", "C": "#059669"}
+    markers = {"A": "o", "B": "s", "C": "^"}
 
-ax2.set_xticks(range(len(versions)))
-ax2.set_xticklabels([f"Iter {i}" for i in range(len(versions))], fontsize=9, color="#b0b8c8")
-ax2.set_ylabel("Accuracy (%)", fontsize=12, color="#b0b8c8")
-ax2.set_title("Optimization Trajectory", fontsize=14, fontweight="bold", color="white")
-ax2.set_ylim(60, 105)
-ax2.set_facecolor("#0f1117")
-ax2.tick_params(colors="#b0b8c8")
-ax2.legend(loc="lower right", fontsize=9, facecolor="#1a1d27", edgecolor="#2a2d37", labelcolor="white")
-for sp in ["top", "right"]:
-    ax2.spines[sp].set_visible(False)
-for sp in ["bottom", "left"]:
-    ax2.spines[sp].set_color("#2a2d37")
+    fig, ax = plt.subplots()
 
-# ── Chart 3: Error breakdown stacked bar ─────────────────────────────────────
-ax3 = axes[1, 0]
-x = np.arange(len(versions))
-cat_colors = ["#e74c3c", "#e67e22", "#3498db", "#1abc9c", "#9b59b6", "#95a5a6"]
-bottom = np.zeros(len(versions))
-for cat, color in zip(cat_names, cat_colors):
-    vals = errors_data[cat]
-    ax3.bar(x, vals, bottom=bottom, color=color, width=0.6, label=cat,
-            edgecolor="#1a1d27", linewidth=0.5)
-    bottom += np.array(vals)
+    for rid, data in sorted(researchers.items()):
+        iters = data["iterations"]
+        metrics = data["metrics"]
 
-ax3.set_xticks(x)
-ax3.set_xticklabels([f"v{i}" for i in range(len(versions))], fontsize=10, color="#b0b8c8")
-ax3.set_ylabel("Number of Errors", fontsize=12, color="#b0b8c8")
-ax3.set_title("Error Breakdown by Category", fontsize=14, fontweight="bold", color="white")
-ax3.set_facecolor("#0f1117")
-ax3.tick_params(colors="#b0b8c8")
-ax3.legend(loc="upper right", fontsize=8, facecolor="#1a1d27", edgecolor="#2a2d37",
-           labelcolor="white", ncol=2)
-for sp in ["top", "right"]:
-    ax3.spines[sp].set_visible(False)
-for sp in ["bottom", "left"]:
-    ax3.spines[sp].set_color("#2a2d37")
+        # Best-so-far trajectory (maximize)
+        best_so_far = []
+        current_best = metrics[0]
+        for m in metrics:
+            if m > current_best:
+                current_best = m
+            best_so_far.append(current_best)
 
-# ── Chart 4: Remaining errors heatmap ────────────────────────────────────────
-ax4 = axes[1, 1]
-heatmap_data = np.array([errors_data[cat] for cat in cat_names])
-im = ax4.imshow(heatmap_data, cmap="YlOrRd", aspect="auto", vmin=0, vmax=6)
+        ax.plot(iters, best_so_far,
+                marker=markers.get(rid, "o"),
+                color=colors.get(rid, "#333"),
+                linewidth=2, markersize=6,
+                label=f"Researcher {rid}")
 
-ax4.set_xticks(range(len(versions)))
-ax4.set_xticklabels([f"v{i}" for i in range(len(versions))], fontsize=10, color="#b0b8c8")
-ax4.set_yticks(range(len(cat_names)))
-ax4.set_yticklabels(cat_names, fontsize=10, color="#b0b8c8")
+    # Target line
+    ax.axhline(y=90, color="#DC2626", linestyle="--", linewidth=1.2, alpha=0.7, label="Target (> 90%)")
 
-for i in range(len(cat_names)):
-    for j in range(len(versions)):
-        val = heatmap_data[i, j]
-        if val > 0:
-            ax4.text(j, i, str(val), ha="center", va="center",
-                     fontsize=11, fontweight="bold",
-                     color="white" if val >= 3 else "#333")
+    ax.set_xlabel("Iteration")
+    ax.set_ylabel("Accuracy (%)")
+    ax.set_title("Prompt Optimization")
+    ax.legend(fontsize=10, frameon=True, edgecolor="#ccc")
 
-ax4.set_title("Error Heatmap (category x iteration)", fontsize=14, fontweight="bold", color="white")
-ax4.set_facecolor("#0f1117")
-ax4.tick_params(colors="#b0b8c8")
-cbar = plt.colorbar(im, ax=ax4, shrink=0.8)
-cbar.ax.tick_params(colors="#b0b8c8")
-cbar.set_label("Errors", color="#b0b8c8")
+    plt.tight_layout()
+    out = here / "results.png"
+    plt.savefig(out, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out}")
 
-plt.tight_layout(pad=2.0, rect=[0, 0, 1, 0.95])
-out = "/Users/woojin/Desktop/02_Areas/01_Codes_automation/14_auto-research-skill/examples/prompt-optimization/results.png"
-plt.savefig(out, dpi=150, facecolor="#0f1117", bbox_inches="tight")
-print(f"Saved: {out}")
+
+if __name__ == "__main__":
+    main()
