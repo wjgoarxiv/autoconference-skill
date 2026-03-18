@@ -24,6 +24,9 @@ Thumbs.db
 # OMC state
 .omc/
 
+# Internal planning artifacts
+docs/superpowers/
+
 # Conference outputs (generated, not committed)
 *_log.md
 *_results.tsv
