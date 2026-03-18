@@ -75,6 +75,12 @@ Known issues:
 5. **sorted() is the optimal single-function solution** at 0.152s, but is a trivial wrapper — the non-trivial approaches teach more about algorithm design.
 6. **Python loop overhead is the fundamental bottleneck.** Any competitive pure-Python approach must minimize Python-level iterations.
 
+### Round 2 Validated Findings
+7. **All researchers converged on sorted().** No Python-level preprocessing (radix partitioning, bucketing, heapq.merge, chunk sorting) can beat a single C-level sorted() call.
+8. **Counter is equivalent to manual dict for counting** — not faster as initially hypothesized. Counter has internal bookkeeping overhead that offsets its C-level counting.
+9. **itertools wrapped in generators is an anti-pattern.** Python generator frames negate C-level itertools speed.
+10. **Best non-trivial approaches:** LSD radix sort base 65536 (0.474s) and dict-based counting sort (0.458s) are the fastest pure-Python implementations without using sorted().
+
 ## Context & References
 - Python's built-in `sorted()` uses Timsort -- highly optimized C implementation, typically ~0.18s for 1M integers
 - Using `sorted()` is allowed but the goal is to learn what algorithmic choices matter
@@ -93,3 +99,7 @@ Known issues:
 | 1 | A | 0.4742s | LSD radix sort base 65536 beats comparison sorts | validated |
 | 1 | B | 0.4585s | Dict-based counting sort optimal for sparse integer data | validated |
 | 1 | C | 0.1521s | Built-in sorted() is unbeatable in pure Python | validated |
+| 2 | A | 0.1516s | Adopted sorted() from shared knowledge; no preprocessing beats it | validated |
+| 2 | B | 0.152s | Adopted sorted(); Counter ~ manual dict, itertools generators slow | validated |
+| 2 | C | 0.1521s | Confirmed sorted() optimal; no further improvement | validated |
+| - | ALL | 0.1516s | **CONVERGED** — best metric stable across 2 rounds | converged |
