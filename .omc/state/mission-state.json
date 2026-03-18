@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-18T05:52:28.043Z",
+  "updatedAt": "2026-03-18T06:20:10.224Z",
   "missions": [
     {
       "id": "session:ec0fe429-7649-4899-bc22-d04cb38daa15:none",
@@ -169,15 +169,15 @@
       "name": "none",
       "objective": "Session mission",
       "createdAt": "2026-03-18T04:27:42.770Z",
-      "updatedAt": "2026-03-18T05:52:28.043Z",
+      "updatedAt": "2026-03-18T06:20:10.224Z",
       "status": "running",
-      "workerCount": 7,
+      "workerCount": 8,
       "taskCounts": {
-        "total": 7,
+        "total": 8,
         "pending": 0,
         "blocked": 0,
         "inProgress": 4,
-        "completed": 3,
+        "completed": 4,
         "failed": 0
       },
       "agents": [
@@ -235,11 +235,11 @@
           "name": "deep-executor:a96183f",
           "role": "deep-executor",
           "ownership": "a96183f725194e833",
-          "status": "running",
+          "status": "done",
           "currentStep": null,
-          "latestUpdate": null,
+          "latestUpdate": "completed",
           "completedSummary": null,
-          "updatedAt": "2026-03-18T05:52:24.154Z"
+          "updatedAt": "2026-03-18T05:53:41.128Z"
         },
         {
           "name": "deep-executor:a0ca886",
@@ -250,25 +250,19 @@
           "latestUpdate": null,
           "completedSummary": null,
           "updatedAt": "2026-03-18T05:52:28.043Z"
+        },
+        {
+          "name": "deep-executor:a7366bc",
+          "role": "deep-executor",
+          "ownership": "a7366bc9d38854e1a",
+          "status": "running",
+          "currentStep": null,
+          "latestUpdate": null,
+          "completedSummary": null,
+          "updatedAt": "2026-03-18T06:20:10.224Z"
         }
       ],
       "timeline": [
-        {
-          "id": "session-start:a76c1c2bb5173588b:2026-03-18T05:52:20.927Z",
-          "at": "2026-03-18T05:52:20.927Z",
-          "kind": "update",
-          "agent": "deep-executor:a76c1c2",
-          "detail": "started deep-executor:a76c1c2",
-          "sourceKey": "session-start:a76c1c2bb5173588b"
-        },
-        {
-          "id": "session-start:a96183f725194e833:2026-03-18T05:52:24.154Z",
-          "at": "2026-03-18T05:52:24.154Z",
-          "kind": "update",
-          "agent": "deep-executor:a96183f",
-          "detail": "started deep-executor:a96183f",
-          "sourceKey": "session-start:a96183f725194e833"
-        },
         {
           "id": "session-start:a0ca88649d2d228f2:2026-03-18T05:52:28.043Z",
           "at": "2026-03-18T05:52:28.043Z",
@@ -276,6 +270,22 @@
           "agent": "deep-executor:a0ca886",
           "detail": "started deep-executor:a0ca886",
           "sourceKey": "session-start:a0ca88649d2d228f2"
+        },
+        {
+          "id": "session-stop:a96183f725194e833:2026-03-18T05:53:41.128Z",
+          "at": "2026-03-18T05:53:41.128Z",
+          "kind": "completion",
+          "agent": "deep-executor:a96183f",
+          "detail": "completed",
+          "sourceKey": "session-stop:a96183f725194e833"
+        },
+        {
+          "id": "session-start:a7366bc9d38854e1a:2026-03-18T06:20:10.224Z",
+          "at": "2026-03-18T06:20:10.224Z",
+          "kind": "update",
+          "agent": "deep-executor:a7366bc",
+          "detail": "started deep-executor:a7366bc",
+          "sourceKey": "session-start:a7366bc9d38854e1a"
         }
       ]
     }

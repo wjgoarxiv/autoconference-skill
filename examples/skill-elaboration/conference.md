@@ -62,6 +62,23 @@ Baseline scores:
 ## Shared Knowledge
 <!-- Auto-populated after each round with validated findings -->
 
+### Round 1 Validated Findings
+
+1. **Symbol recognition table** (A): ISA symbol-to-equipment mappings with visual cue descriptions improve equipment detection significantly (equipment 3→6)
+2. **Connection point identification** (A): Nozzle and port identification rules help trace where streams attach to equipment
+3. **Instrument discrimination** (A): Distinguishing ISA instrument bubbles from equipment symbols prevents false positives
+4. **Stream tracing protocol** (B): Systematic equipment-to-equipment path tracing is the foundational methodology for stream identification (streams 4→11)
+5. **ISA-5.1 numbering** (B): Sequential stream numbering with S-NNN / U-NNN conventions enables proper stream labeling (numbered 0→7)
+6. **Process flow patterns** (B): Generic treatment plant flow patterns improve stream ordering without hardcoding diagram specifics
+7. **Bypass/branch detection** (B): Rules for parallel paths, T-junctions, and Y-junctions capture additional streams
+8. **Output validation rules** (C): Connectivity constraints ("every equipment must have inlet+outlet") force the LLM to find missing connections
+9. **JSON output schema** (C): Structured schema improves reporting consistency
+10. **Naming conventions** (C): ISA tag number format provides consistent equipment and stream identification
+
+**Negative findings:**
+- Avoid deep classification hierarchies — flat symbol tables are more effective (A)
+- Avoid aggressive flow direction heuristics — they confuse numbering (B)
+
 ## Context & References
 - Evaluation harness: `evaluate.py`
 - Annotation script: `annotate_pid.py`
@@ -75,3 +92,6 @@ Baseline scores:
 <!-- Auto-maintained by Conference Chair. Do not edit manually. -->
 | Round | Researcher | Best Metric | Key Finding | Status |
 |-------|-----------|-------------|-------------|--------|
+| 1 | A | 0.4500 | Symbol table + connection points + instrument discrimination | completed |
+| 1 | B | 0.7144 | Stream tracing + ISA numbering + bypass/branch detection | completed |
+| 1 | C | 0.6133 | JSON schema + validation rules + naming conventions | completed |
