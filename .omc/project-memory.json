@@ -59,6 +59,18 @@
       "type": "file"
     },
     {
+      "path": "README.md",
+      "accessCount": 2,
+      "lastAccessed": 1773805654224,
+      "type": "file"
+    },
+    {
+      "path": "assets/conference_template.md",
+      "accessCount": 2,
+      "lastAccessed": 1773805662885,
+      "type": "file"
+    },
+    {
       "path": "",
       "accessCount": 1,
       "lastAccessed": 1773768376156,
@@ -74,12 +86,6 @@
       "path": "assets/synthesis_template.md",
       "accessCount": 1,
       "lastAccessed": 1773768405992,
-      "type": "file"
-    },
-    {
-      "path": "assets/conference_template.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768408656,
       "type": "file"
     },
     {
@@ -143,12 +149,6 @@
       "type": "file"
     },
     {
-      "path": "README.md",
-      "accessCount": 1,
-      "lastAccessed": 1773768600731,
-      "type": "file"
-    },
-    {
       "path": "evals/evals.json",
       "accessCount": 1,
       "lastAccessed": 1773768611019,
@@ -158,6 +158,18 @@
       "path": "references/conference-protocol.md",
       "accessCount": 1,
       "lastAccessed": 1773768618906,
+      "type": "file"
+    },
+    {
+      "path": "2026-03-18_REPO-DECOR-PROMPT.md",
+      "accessCount": 1,
+      "lastAccessed": 1773805660757,
+      "type": "file"
+    },
+    {
+      "path": "2026-03-18_PROMPT.md",
+      "accessCount": 1,
+      "lastAccessed": 1773805662549,
       "type": "file"
     }
   ],
