@@ -26,6 +26,7 @@ Thumbs.db
 
 # Internal planning artifacts
 docs/superpowers/
+*_PROMPT.md
 
 # Conference outputs (generated, not committed)
 *_log.md
