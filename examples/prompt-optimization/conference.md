@@ -99,3 +99,6 @@ Common failure modes:
 | 2 | A | 94.0% | Decision rules + structured output = 94% | completed |
 | 2 | B | 94.0% | Examples + rules synergy; 3 examples suffice | completed |
 | 2 | C | 94.0% | Structured output + rules confirmed; prompt minimized | completed |
+| 3 | A | 94.0% | ENDGAME: 5 micro-opts, all 94% — ceiling confirmed | converged |
+| 3 | B | 94.0% | ENDGAME: 5 example variations, all 94% — ceiling confirmed | converged |
+| 3 | C | 94.0% | ENDGAME: 5 structural variations, all 94% — ceiling confirmed | converged |
