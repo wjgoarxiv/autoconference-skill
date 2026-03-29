@@ -1,6 +1,6 @@
 # Core Principles
 
-Ten principles behind the autoconference orchestration system. Principles 1–7 are inherited from autoresearch-skill and apply to each Researcher agent's inner loop. Principles 8–10 are conference-specific and govern the multi-agent coordination layer.
+Eleven principles behind the autoconference orchestration system. Principles 1–7 are inherited from autoresearch-skill and apply to each Researcher agent's inner loop. Principles 8–11 are conference-specific and govern the multi-agent coordination layer.
 
 ---
 
@@ -27,6 +27,7 @@ These apply to each Researcher agent's inner loop. See [autoresearch-skill core-
 | 8 | **Knowledge Transfer** | Validated findings must propagate to all researchers between rounds. Without sharing, parallel research degenerates into N independent runs with no synergy. | `Shared Knowledge` section |
 | 9 | **Adversarial Review** | Claims must survive challenge before propagating. Self-evaluation has blind spots (Goodhart's Law). An external reviewer with deep reasoning catches overfitting, noise, and invalid comparisons. | `peer_review_round_N.md` |
 | 10 | **Synthesis Over Selection** | The final output combines complementary insights from multiple researchers, not just picks the winner. The conference's value is in cross-pollination — insights no single researcher would produce alone. | `synthesis.md` |
+| 11 | **Relentless Persistence** | The conference runs until the budget is spent or convergence is reached. Stopping early leaves the most valuable cross-pollination unrun. | Conference Persistence Directive |
 
 ---
 
@@ -51,6 +52,11 @@ These apply to each Researcher agent's inner loop. See [autoresearch-skill core-
 - **Violation consequence:** The conference produces a result equivalent to running one autoresearch with extra steps. The cross-pollination value — the primary reason to run a conference — is lost.
 - **Example:** Researcher A finds the best architectural change. Researcher B finds the best hyperparameter configuration. Neither tested their improvement in combination. The Synthesizer identifies these as orthogonal improvements and combines them, producing a result better than either individual finding.
 
+### 11. Relentless Persistence
+- **Why:** Conference value compounds across rounds. Round 1 finds local optima. Round 3+ enables cross-pollination breakthroughs where Researcher A's validated insight transforms Researcher B's approach.
+- **Violation consequence:** Conference stops after round 1 with isolated results. The synthesis that would have emerged from cross-pollination never happens.
+- **Example:** A 3-round conference with 3 researchers: Round 1 finds 3 local optima. Round 2 cross-pollinates, producing 2 hybrid approaches. Round 3 synthesizes. Stopping at round 1 misses the synthesis entirely.
+
 ---
 
 ## Mapping to conference.md
@@ -67,3 +73,4 @@ These apply to each Researcher agent's inner loop. See [autoresearch-skill core-
 | Knowledge Transfer | `## Shared Knowledge` | Conference Chair populates after each round |
 | Adversarial Review | `peer_review_round_N.md` | Reviewer (Opus) runs after every poster session |
 | Synthesis Over Selection | `synthesis.md` | Synthesizer (Opus) runs once at end |
+| Relentless Persistence | Conference Persistence Directive | Conference Chair advances rounds automatically until budget or convergence |

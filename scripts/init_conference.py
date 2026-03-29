@@ -353,6 +353,7 @@ def scaffold(args: argparse.Namespace) -> None:
     print(f"  1. Open conference.md and fill in 'Current Approach' and 'Search Space'.")
     print(f"  2. Edit researcher focus areas if using 'assigned' strategy.")
     print(f"  3. Tell Claude: \"Run the autoconference on my conference.md\"")
+    print(f"  4. For overnight runs: bash scripts/autoconference-loop.sh {output.resolve()}")
 
 
 def main() -> None:

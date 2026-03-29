@@ -232,9 +232,9 @@ If ALL researchers fail or time out in the same round, abort the conference with
 
 ---
 
-### 3.2 Researcher Self-Termination
+### 3.2 Researcher PIVOT and Re-spawn
 
-Two self-termination paths from the autoresearch inner loop:
+Two exit paths from the autoresearch inner loop:
 
 **Target Reached:**
 - Researcher metric hit the success target
@@ -242,12 +242,18 @@ Two self-termination paths from the autoresearch inner loop:
 - Check: if ALL researchers are CONVERGED or STALLED/FAILED, skip to synthesis immediately
 - Otherwise, continue with the remaining researchers for this round's remaining phases
 
-**Level 3 Stuck (7 consecutive non-improving iterations):**
-- Researcher produces its partial output and signals `STALLED_L3`
+**Level 2 Stuck (5 consecutive non-improving iterations — DEEP PIVOT):**
+- Researcher signals `STALLED_L2` to Conference Chair after exhausting the deep pivot attempt
+- Conference Chair marks this researcher as `STALLED_L2` in the round log
+- Researcher continues participating in this round but may be re-assigned a different search partition next round
+- In the next round, re-spawn with the strategy from Shared Knowledge that differs most from the current approach
+
+**Level 3 Stuck (7 consecutive non-improving iterations — search space exhausted):**
+- Researcher signals `STALLED_L3` to Conference Chair
 - Conference Chair marks this researcher as `STALLED` in the round log
 - Researcher is still included in Phase 2 (its findings — even negative ones — are useful)
-- In the next round, re-spawn this researcher with a fundamentally different strategy:
-  inject the other researchers' validated findings as "start from here" context
+- **The conference does NOT stop** — only this researcher pauses
+- In the next round, Conference Chair re-spawns this researcher with a fundamentally different strategy derived from other researchers' validated findings in Shared Knowledge
 
 ---
 

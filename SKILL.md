@@ -28,6 +28,22 @@ allowed-tools:
 
 *Spawn a conference of autonomous researchers that compete, collaborate, and synthesize breakthroughs.*
 
+## Conference Persistence Directive
+
+**The Conference Chair is relentless.** Once the conference begins:
+
+1. **NEVER STOP** a round prematurely. Each round runs all 4 phases to completion.
+2. **NEVER ASK** "should I continue to the next round?" Advance automatically.
+3. **Use the full budget.** If `max_rounds` is 5, run 5 rounds. Stopping at round 2 wastes 60% of the exploration budget.
+4. **The conference runs until one of these conditions is met:**
+   - Target metric achieved (convergence)
+   - `max_rounds` or `max_total_iterations` exhausted (budget spent — this is normal, not failure)
+   - All researchers simultaneously stalled at Level 2+ (early synthesis)
+   - The user manually interrupts
+5. **If none of these conditions are true, begin the next round immediately.**
+
+Think of `max_rounds` as a budget to *spend*, not a limit to *fear*.
+
 ## When to Use This Skill
 
 Use autoconference when:
@@ -242,6 +258,8 @@ final_report.md                  # Executive summary with full conference histor
 
 See `references/results-logging.md` for TSV column schemas and JSONL event format.
 
+**Visualization:** All conference visualizations (convergence plots, researcher heatmaps, synthesis diagrams) MUST use `scripts/style_presets.py`. Call `rcparams()` before any plotting. See `references/visualization-guide.md` for the 7 mandatory rules: white background, Okabe-Ito palette, DPI 600, no titles, colored legend text.
+
 ## Safety & Guardrails
 
 - **`max_total_iterations`** — hard cap on total iterations across all researchers. Prevents runaway execution.
@@ -255,8 +273,8 @@ See `references/results-logging.md` for TSV column schemas and JSONL event forma
 
 **Per-researcher (inherited from autoresearch-skill):**
 - Level 1 — Plateau (3 consecutive non-improving): switch to a fundamentally different strategy
-- Level 2 — Deep Stuck (5 consecutive non-improving): radical architectural shift; if still stuck after 2 more attempts, self-terminate
-- Level 3 — Irrecoverable (7 consecutive non-improving): stop gracefully, produce own final report
+- Level 2 — Deep Stuck (5 consecutive non-improving): DEEP PIVOT — radical paradigm shift. Adopt strategy from Shared Knowledge that differs most from current approach. If still non-improving after 2 more attempts, signal STALLED_L2 to Conference Chair (researcher continues but may be re-assigned next round).
+- Level 3 — Irrecoverable (7 consecutive non-improving): Signal STALLED_L3 — researcher has exhausted its search space. Conference Chair re-spawns with fundamentally different strategy from Shared Knowledge next round. **The conference does NOT stop** — only this researcher pauses.
 
 **Conference-level:**
 - If all researchers simultaneously reach stuck Level 2+ in the same round → Conference Chair logs `conference.stalled` event and proceeds directly to SYNTHESIS (Step 11) without waiting for convergence.
@@ -333,7 +351,7 @@ External tools can `tail -f conference_events.jsonl` for real-time monitoring. S
 
 ## Dependencies
 
-- **Required:** Claude Code with Agent tool support (for spawning parallel subagents)
+- **Required:** Any LLM CLI with subagent support (Claude Code, Codex CLI, OpenCode, Gemini CLI)
 - **Extends:** `autoresearch-skill` — each Researcher runs the autoresearch 5-stage loop. Autoconference adds multi-agent orchestration, peer review, and synthesis on top.
 - **Optional:** `/worktree-dashboard` (real-time researcher monitoring), `/compare-worktrees` (cross-worktree review by Reviewer agent)
 

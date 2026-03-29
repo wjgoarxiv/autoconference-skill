@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/github/stars/wjgoarxiv/autoconference-skill?style=social" />
   <img src="https://img.shields.io/badge/license-MIT-blue" />
   <img src="https://img.shields.io/badge/python-3.8+-green" />
-  <img src="https://img.shields.io/badge/skill-Claude%20Code-blueviolet" />
+  <img src="https://img.shields.io/badge/skill-Claude%20Code%20%7C%20Codex%20%7C%20OpenCode%20%7C%20Gemini-blueviolet" />
 </p>
 
 ---
@@ -76,6 +76,15 @@ ln -s "$(pwd)" ~/.claude/skills/autoconference-skill
 | Claude Code | Paste the copy-paste block above, or use the manual install |
 | Codex CLI | Copy `SKILL.md` into your Codex instructions directory |
 | Gemini CLI | Copy `SKILL.md` into your Gemini context directory |
+
+### Other Platforms
+
+| Platform | Skills Path | Install Command |
+|----------|-------------|-----------------|
+| **Claude Code** | `~/.claude/skills/autoconference-skill/` | See above |
+| **Codex CLI** | `~/.codex/skills/autoconference-skill/` | `mkdir -p ~/.codex/skills && ln -s "$(pwd)" ~/.codex/skills/autoconference-skill` |
+| **OpenCode** | `~/.config/opencode/skills/autoconference-skill/` | `mkdir -p ~/.config/opencode/skills && ln -s "$(pwd)" ~/.config/opencode/skills/autoconference-skill` |
+| **Gemini CLI** | `~/.gemini/skills/autoconference-skill/` | `mkdir -p ~/.gemini/skills && ln -s "$(pwd)" ~/.gemini/skills/autoconference-skill` |
 
 ## Usage
 
@@ -232,6 +241,26 @@ Ready-to-use `conference.md` configs for common tasks:
 | `peer_review_round_N.md` | Reviewer verdicts for each round |
 | `synthesis.md` | Final synthesized output from Synthesizer |
 | `final_report.md` | Executive summary with full conference history |
+
+## Overnight Runs
+
+To run a conference overnight, use the universal loop script:
+
+```bash
+# Option A: Foreground (simplest)
+bash scripts/autoconference-loop.sh ./my-conference/
+
+# Option B: Background with nohup (no tmux needed)
+nohup bash scripts/autoconference-loop.sh ./my-conference/ > conference.log 2>&1 &
+
+# Option C: Background with tmux (best experience)
+tmux new-session -d -s conference 'bash scripts/autoconference-loop.sh ./my-conference/'
+
+# Check progress anytime
+bash scripts/check_conference.sh ./my-conference/
+```
+
+The script auto-detects your CLI tool, handles round restarts, and checks for conference completion. Works with Claude Code, Codex CLI, OpenCode, and Gemini CLI.
 
 ## Relationship to autoresearch-skill
 
