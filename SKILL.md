@@ -44,6 +44,53 @@ allowed-tools:
 
 Think of `max_rounds` as a budget to *spend*, not a limit to *fear*.
 
+## Pre-Flight Setup (Mandatory)
+
+Before starting any conference, the Conference Chair MUST ask the user these questions. Do NOT assume defaults — present options and wait for the user's answer.
+
+### Question 1: Researcher Count
+Ask: "How many researchers should participate in this conference?"
+
+Present options:
+- **2 researchers** — Minimal. Good for A/B comparison of two approaches.
+- **3 researchers** (recommended) — Balanced. Enough diversity for cross-pollination without excessive overhead.
+- **4-5 researchers** — Large-scale. For broad search spaces with many distinct strategies.
+
+If the user already specified `count` in conference.md, confirm it: "Your conference.md specifies N researchers. Proceed with this?"
+
+### Question 2: Devil's Advocate Researcher
+Ask: "Should one of the researchers be a Devil's Advocate — deliberately pursuing contrarian strategies?"
+
+Explain:
+- **Yes** — One researcher is assigned to challenge the mainstream approach. They try the opposite of what seems obvious, test assumptions others take for granted, and explore strategies that the other researchers would dismiss. This catches blind spots and occasionally discovers breakthroughs.
+- **No** — All researchers pursue constructive strategies in their assigned search space partitions.
+
+If the user says yes, assign one researcher the Devil's Advocate role (see `references/agent-prompts.md` §Devil's Advocate).
+
+### Question 3: Overnight Execution
+Ask: "Do you want this conference to run overnight / unattended?"
+
+If yes:
+- Recommend: `bash scripts/autoconference-loop.sh ./conference-dir/`
+- Explain the 3 execution modes (foreground / nohup / tmux)
+- Set `pause_every: never` in the conference config
+- Remind: "I'll run autonomously. You can check progress with `bash scripts/check_conference.sh`"
+
+If no:
+- Offer `pause_every: N` so the user can review between rounds
+- The Conference Chair pauses after each peer review for user feedback
+
+### Question 4: Search Space Strategy
+Ask: "How should researchers divide the search space?"
+
+Present options:
+- **Assigned** (recommended) — Each researcher gets a specific focus area. Less overlap, more coverage.
+- **Free** — All researchers explore the full space. More competition, potential redundancy.
+
+If the user already specified this in conference.md, confirm it.
+
+**IMPORTANT:** Do NOT start Phase 1 of Round 1 until ALL pre-flight questions are answered. If the user says "just use defaults," that counts as an answer — proceed with recommended defaults.
+
 ## When to Use This Skill
 
 Use autoconference when:
