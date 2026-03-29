@@ -4,7 +4,7 @@
   <em>자율 연구자들이 경쟁하고, 협력하며, 돌파구를 합성하는 컨퍼런스를 생성합니다.</em>
 </p>
 <p align="center">
-  <a href="#빠른-시작">빠른 시작</a> · <a href="#작동-방식">작동 방식</a> · <a href="#템플릿">템플릿</a> · <a href="#autoresearch-skill과의-관계">autoresearch-skill</a> · <a href="./README.md">English</a>
+  <a href="#언제-사용하는가">언제 사용하는가</a> · <a href="#빠른-시작">빠른 시작</a> · <a href="#작동-방식">작동 방식</a> · <a href="#템플릿">템플릿</a> · <a href="#autoresearch-skill과의-관계">autoresearch-skill</a> · <a href="./README.md">English</a>
 </p>
 <p align="center">
   <img src="https://img.shields.io/github/stars/wjgoarxiv/autoconference-skill?style=social" />
@@ -72,6 +72,33 @@
           │
           ▼  수렴 확인 → 다음 라운드 또는 최종 합성
 ```
+
+## 언제 사용하는가
+
+Autoconference는 [autoresearch-skill](https://github.com/wjgoarxiv/autoresearch-skill)의 단일 에이전트 루프 위에 병렬 탐색, 적대적 검증, 교차 연구자 합성을 올린 것입니다. 한 에이전트가 순차적으로 탐색하는 것으로 부족할 때 -- 검색 공간이 너무 넓거나, 자기 평가만으로는 신뢰할 수 없을 때 사용합니다.
+
+### autoconference vs 대안
+
+|  | autoresearch-skill | 에이전트 하네스 모드 (team, /batch, ouroboros 등) | autoconference |
+|:---|:---|:---|:---|
+| **에이전트 수** | 1 | N, 각각 다른 서브태스크 | N, 같은 문제에 다른 전략 |
+| **탐색 방식** | 순차적 전략 전환 | 독립적 서브태스크 분할 | 검색 공간 파티셔닝 + 라운드간 지식 전달 |
+| **검증** | 기계적 평가자 또는 에이전트 자기 판단 | 빌드/테스트 통과 | Opus 적대적 리뷰어 (과적합, 노이즈, 부당 주장 검출) |
+| **결과 통합** | 최선 결과 하나 | 서브태스크별 결과 병합 | 합성 — 상호 보완적 인사이트 결합, 단순 선택이 아님 |
+| **라운드 구조** | 없음 (연속 반복) | 없음 (일회성 분배) | 라운드별 포스터 세션 → 피어 리뷰 → 지식 전달 |
+
+### autoconference를 선택할 때
+
+- **검색 공간이 넓어서 파티셔닝이 가능할 때** — N명의 연구자가 서로 다른 영역을 병렬로 탐색하면 한 에이전트가 순차적으로 전략을 바꾸는 것보다 넓게 커버합니다
+- **자기 평가에 사각지대가 있을 때** — 적대적 리뷰어(Opus)가 과적합, 측정 노이즈, Goodhart's Law 효과를 잡아냅니다
+- **선택이 아닌 합성이 필요할 때** — 최종 결과물이 여러 접근법의 보완적 발견을 결합해야 할 때
+- **정성적 연구**(문헌 종합, 가설 생성)에서 다각도 관점이 하나의 분류 체계로 수렴해야 할 때
+
+### autoresearch-skill을 대신 사용할 때
+
+- 검색 공간이 **한 에이전트로 충분히** 커버 가능할 때
+- **기계적 평가자**가 있어 유지/복원 판단에 외부 검증이 불필요할 때
+- **토큰 비용이 중요할 때** — autoconference는 라운드당 N명의 연구자 + 리뷰어 + 합성기를 실행하여, 단일 autoresearch 대비 대략 N+2배의 비용이 듭니다
 
 ## 빠른 시작
 

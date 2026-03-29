@@ -5,7 +5,7 @@
   <em>Spawn a conference of autonomous researchers that compete, collaborate, and synthesize breakthroughs.</em>
 </p>
 <p align="center">
-  <a href="#quick-start">Quick Start</a> · <a href="#features">Features</a> · <a href="#how-it-works">How It Works</a> · <a href="#templates">Templates</a> · <a href="./README-Ko-KR.md">한국어</a>
+  <a href="#when-to-use">When to Use</a> · <a href="#quick-start">Quick Start</a> · <a href="#features">Features</a> · <a href="#how-it-works">How It Works</a> · <a href="#templates">Templates</a> · <a href="./README-Ko-KR.md">한국어</a>
 </p>
 <p align="center">
   <img src="https://img.shields.io/github/stars/wjgoarxiv/autoconference-skill?style=social" />
@@ -42,6 +42,33 @@
 - **Full Audit Trail** -- Per-researcher logs, poster sessions, peer reviews, conference-level TSV, and JSONL event stream.
 - **Built on autoresearch-skill** -- Each researcher runs the proven 5-stage experiment-evaluate-iterate loop.
 - **Safety Built In** -- Max iterations, time budgets, researcher timeouts, forbidden-change boundaries, and automatic rollback.
+
+## When to Use
+
+Autoconference builds on [autoresearch-skill](https://github.com/wjgoarxiv/autoresearch-skill)'s single-agent loop by adding parallel exploration, adversarial review, and cross-researcher synthesis. Use it when one agent exploring sequentially isn't enough -- either because the search space is too wide, or because self-evaluation alone can't be trusted.
+
+### autoconference vs alternatives
+
+|  | autoresearch-skill | Agent harness modes (team, /batch, ouroboros, etc.) | autoconference |
+|:---|:---|:---|:---|
+| **Agents** | 1 | N, each on a different subtask | N, all on the same problem with different strategies |
+| **Exploration** | Sequential strategy switching | Independent subtask decomposition | Search space partitioning + knowledge transfer between rounds |
+| **Validation** | Mechanical evaluator or agent self-judgment | Build/test pass | Opus adversarial reviewer (catches overfitting, noise, invalid claims) |
+| **Result integration** | Single best result | Per-subtask results merged | Synthesis -- combines complementary insights, not just picks a winner |
+| **Round structure** | None (continuous iteration) | None (one-shot dispatch) | Poster session → peer review → knowledge transfer per round |
+
+### Pick autoconference when
+
+- The **search space is wide enough to partition** -- N researchers exploring different regions in parallel cover more ground than one agent switching strategies sequentially
+- **Self-evaluation has blind spots** -- the adversarial Reviewer (Opus) catches overfitting, measurement noise, and Goodhart's Law effects that a single agent's evaluator misses
+- You need **synthesis, not selection** -- the final output should combine complementary findings from multiple approaches, not just take the best score
+- The research is **qualitative** (literature synthesis, hypothesis generation) and benefits from multiple perspectives converging on a shared taxonomy
+
+### Use autoresearch-skill instead when
+
+- The search space is **small enough for one agent** to cover within the iteration budget
+- You have a **mechanical evaluator** and trust its keep/revert decisions without external review
+- **Token cost matters** -- autoconference runs N researchers + reviewer + synthesizer per round, roughly N+2x the cost of a single autoresearch loop
 
 ## Quick Start
 
