@@ -84,6 +84,7 @@ Stage 2 — Hypothesize:
 Stage 3 — Experiment:
   Execute the single proposed change. Always preserve the ability to revert.
   Respect all Forbidden Changes — never modify anything in that list.
+  Wrap all Bash commands with `timeout 5m <command>`. Exit code 124 = timeout — revert and proceed to next iteration.
 
 Stage 4 — Evaluate:
   Measure the result against the success metric. Compare to your baseline and your best so far.
@@ -93,7 +94,8 @@ Stage 5 — Log & Iterate:
   If improved: keep the change. Update your best-known result.
   If not improved: REVERT the change immediately. Log the failure reason.
   Always: append a row to researcher_{ID}_results.tsv, append detailed notes to
-  researcher_{ID}_log.md. Then check: target met? iterations_per_round exhausted?
+  researcher_{ID}_log.md. After logging, update `researcher_{ID}_progress.png` using `/scientific-visualization`: plot iteration vs metric from your TSV, kept as filled / reverted as hollow markers, best-so-far envelope, target threshold. Overwrite each iteration.
+  Then check: target met? iterations_per_round exhausted?
   If neither, loop back to Stage 1.
 
 ## Stuck Detection

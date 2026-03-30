@@ -209,6 +209,8 @@ Each Researcher prompt MUST include (see `references/agent-prompts.md` §Researc
 
 Wait for all researchers to complete (respect `researcher_timeout`). If a researcher crashes or times out, proceed with partial results from completed researchers; log status `failed` in `conference_results.tsv`. Re-spawn failed researchers next round from their last known good state.
 
+After all researchers complete (or timeout), update `conference_progress.png` — a live multi-researcher convergence plot refreshed every round. Use the `/scientific-visualization` skill: read all `researcher_*_results.tsv` files, plot iteration number (x) vs metric value (y) with one line per researcher (Okabe-Ito palette), overlay a best-of-conference envelope, and mark the target threshold. Call `rcparams()` from `scripts/style_presets.py` before plotting. Single-panel layout. Overwrite `conference_progress.png` each round.
+
 **7. Phase 2 — Spawn Session Chair (Haiku) to produce poster session**
 Spawn one Session Chair agent. Prompt MUST include:
 - Paths to all researcher TSV files + last 10 log entries per researcher (not full logs — context size management)
@@ -287,6 +289,7 @@ Five roles with distinct model tiers. Full prompt contracts in `references/agent
 ```
 conference.md                    # Config (updated: Shared Knowledge + Conference Log)
 conference_results.tsv           # Master conference-level TSV (all rounds, all researchers)
+conference_progress.png          # Live convergence plot (updated each round)
 conference_events.jsonl          # Append-only event log
 
 researcher_A_log.md              # Per-researcher detailed iteration logs
@@ -314,6 +317,7 @@ See `references/results-logging.md` for TSV column schemas and JSONL event forma
 - **`time_budget`** — wall-clock limit for the entire conference.
 - **`researcher_timeout`** — per-researcher time limit (default: `time_budget / researcher_count`, or set explicitly). If exceeded, the researcher is marked `failed` and the conference proceeds with partial results.
 - **Automatic rollback** — inherited from autoresearch. Each researcher reverts failed experiments before the next iteration.
+- **Per-experiment timeout** — inherited from autoresearch. Each Bash command in Stage 3/4 is wrapped with `timeout 5m`. Exit code 124 = timeout — revert and continue. Distinct from `researcher_timeout` (per-round level) vs per-experiment (per-iteration level).
 - **Forbidden changes enforcement** — inherited from autoresearch. The `Forbidden Changes` list is passed verbatim to every researcher's prompt.
 
 ## Stuck Detection
