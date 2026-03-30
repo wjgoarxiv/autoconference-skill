@@ -23,6 +23,11 @@ Thumbs.db
 
 # OMC state
 .omc/
+.omx/
+.sisyphus/
+
+# Session artifacts
+HANDOFF.md
 
 # Internal planning artifacts
 docs/superpowers/
