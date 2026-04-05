@@ -49,3 +49,4 @@ worktrees/
 sort_*.py
 sort_best.py
 bench_researcher.py
+/PLAN.md

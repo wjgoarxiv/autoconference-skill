@@ -1,0 +1,45 @@
+{
+  "name": "autoconference",
+  "version": "2.0.0",
+  "description": "Multi-agent research conference — orchestrates parallel AI researchers, adversarial debate, and automated synthesis for any research topic.",
+  "author": { "name": "wjgoarxiv" },
+  "repository": "https://github.com/wjgoarxiv/autoconference-skill",
+  "license": "MIT",
+  "skills": [
+    {
+      "name": "autoconference",
+      "path": "skills/autoconference.md",
+      "description": "Core conference loop with parallel researchers and chairman synthesis."
+    },
+    {
+      "name": "plan",
+      "path": "skills/plan.md",
+      "description": "8-step interactive setup wizard for configuring a conference session."
+    },
+    {
+      "name": "resume",
+      "path": "skills/resume.md",
+      "description": "Resume a paused or interrupted conference from the latest checkpoint."
+    },
+    {
+      "name": "analyze",
+      "path": "skills/analyze.md",
+      "description": "Post-conference analysis: structured insights, citations, and gap analysis."
+    },
+    {
+      "name": "debate",
+      "path": "skills/debate.md",
+      "description": "Adversarial 2-researcher format for stress-testing hypotheses."
+    },
+    {
+      "name": "survey",
+      "path": "skills/survey.md",
+      "description": "Literature survey mode: systematic review, clustering, and comparison tables."
+    },
+    {
+      "name": "ship",
+      "path": "skills/ship.md",
+      "description": "Package and export conference results as Markdown, PDF, or Notion pages."
+    }
+  ]
+}

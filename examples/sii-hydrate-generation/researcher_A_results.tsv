@@ -1,12 +1,12 @@
-round	researcher	iteration	metric_value	delta	delta_pct	status	description	peer_review_verdict	timestamp
-1	A	0	34.5	-	-	baseline	Baseline: scale crystal to 3.6 nm, water everywhere	challenged	2026-03-19T10:00:00Z
-1	A	1	40.5	+6.0	+17.4%	kept	Reduce scaling to 3.5 nm, still water everywhere	challenged	2026-03-19T10:10:00Z
-1	A	2	65.0	+24.5	+60.5%	kept	Try rep 3 (too large crystal), water everywhere	challenged	2026-03-19T10:20:00Z
-1	A	3	34.5	-30.5	-46.9%	reverted	Back to rep 2, scale to 3.6, partial water filter 30%	challenged	2026-03-19T10:30:00Z
-2	A	0	65.0	+0.0	+0.0%	kept	Native crystal dims, but water still in slab	validated	2026-03-19T12:00:00Z
-2	A	1	65.0	+0.0	+0.0%	kept	Native dims, partial water filter 60%	validated	2026-03-19T12:10:00Z
-2	A	2	65.0	+0.0	+0.0%	kept	Native dims, partial water filter 90%	validated	2026-03-19T12:20:00Z
-2	A	3	99.9	+34.9	+53.7%	kept	Native dims, proper water exclusion (FIXED)	validated	2026-03-19T12:30:00Z
-3	A	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 120	validated	2026-03-19T14:00:00Z
-3	A	1	99.8	-0.1	-0.1%	reverted	Native dims + exclusion, density 998	validated	2026-03-19T14:10:00Z
-3	A	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	validated	2026-03-19T14:20:00Z
+round	researcher	iteration	metric_value	delta	delta_pct	status	description	evaluator_source	peer_review_verdict	timestamp
+1	A	0	34.5	-	-	baseline	Baseline: scale crystal to 3.6 nm, water everywhere	script:evaluate.py	challenged	2026-03-19T10:00:00Z
+1	A	1	40.5	+6.0	+17.4%	kept	Reduce scaling to 3.5 nm, still water everywhere	script:evaluate.py	challenged	2026-03-19T10:10:00Z
+1	A	2	65.0	+24.5	+60.5%	kept	Try rep 3 (too large crystal), water everywhere	script:evaluate.py	challenged	2026-03-19T10:20:00Z
+1	A	3	34.5	-30.5	-46.9%	reverted	Back to rep 2, scale to 3.6, partial water filter 30%	script:evaluate.py	challenged	2026-03-19T10:30:00Z
+2	A	0	65.0	+0.0	+0.0%	kept	Native crystal dims, but water still in slab	script:evaluate.py	validated	2026-03-19T12:00:00Z
+2	A	1	65.0	+0.0	+0.0%	kept	Native dims, partial water filter 60%	script:evaluate.py	validated	2026-03-19T12:10:00Z
+2	A	2	65.0	+0.0	+0.0%	kept	Native dims, partial water filter 90%	script:evaluate.py	validated	2026-03-19T12:20:00Z
+2	A	3	99.9	+34.9	+53.7%	kept	Native dims, proper water exclusion (FIXED)	script:evaluate.py	validated	2026-03-19T12:30:00Z
+3	A	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 120	script:evaluate.py	validated	2026-03-19T14:00:00Z
+3	A	1	99.8	-0.1	-0.1%	reverted	Native dims + exclusion, density 998	script:evaluate.py	validated	2026-03-19T14:10:00Z
+3	A	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	script:evaluate.py	validated	2026-03-19T14:20:00Z

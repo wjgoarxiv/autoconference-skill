@@ -1,0 +1,21 @@
+{
+  "name": "autoconference-skill",
+  "version": "2.0.0",
+  "description": "Multi-agent research conference skill for Claude Code",
+  "primarySources": [
+    { "path": "guide/getting-started.md", "title": "Getting Started", "description": "Quickstart guide and domain cheat sheet" },
+    { "path": "guide/autoconference.md", "title": "Core Conference Loop", "description": "4-phase round structure and convergence" },
+    { "path": "guide/plan.md", "title": "Plan Command", "description": "8-step setup wizard" },
+    { "path": "guide/resume.md", "title": "Resume Command", "description": "Checkpoint recovery" },
+    { "path": "guide/analyze.md", "title": "Analyze Command", "description": "Post-conference insight analysis" },
+    { "path": "guide/debate.md", "title": "Debate Command", "description": "Adversarial 2-researcher format" },
+    { "path": "guide/survey.md", "title": "Survey Command", "description": "Multi-database literature survey" },
+    { "path": "guide/ship.md", "title": "Ship Command", "description": "Conference results shipping" },
+    { "path": "guide/chains-and-combinations.md", "title": "Command Chains", "description": "How to combine commands" },
+    { "path": "guide/advanced-patterns.md", "title": "Advanced Patterns", "description": "Guards, noise, worktrees, CI/CD" },
+    { "path": "guide/troubleshooting.md", "title": "Troubleshooting", "description": "Common failure modes and fixes" },
+    { "path": "guide/examples-by-domain.md", "title": "Examples by Domain", "description": "Concrete examples across domains" },
+    { "path": "COMPARISON.md", "title": "Comparison Guide", "description": "autoconference vs alternatives" },
+    { "path": "references/results-logging.md", "title": "Results Logging", "description": "TSV and JSONL formats" }
+  ]
+}

@@ -1,12 +1,12 @@
-round	researcher	iteration	metric_value	delta	delta_pct	status	description	peer_review_verdict	timestamp
-1	C	0	34.5	-	-	baseline	Rep 2, scale to 3.6, water everywhere	challenged	2026-03-19T11:20:00Z
-1	C	1	34.5	+0.0	+0.0%	kept	Rep 2, scale to 3.6, partial water filter 50%	challenged	2026-03-19T11:30:00Z
-1	C	2	40.5	+6.0	+17.4%	kept	Rep 2, scale to 3.5, partial water filter 70%	challenged	2026-03-19T11:40:00Z
-1	C	3	65.0	+24.5	+60.5%	kept	Rep 2, native dims, but still water in slab	challenged	2026-03-19T11:50:00Z
-2	C	0	75.4	+10.4	+16.0%	kept	Scale to 3.5, proper water exclusion	validated	2026-03-19T13:20:00Z
-2	C	1	78.4	+3.0	+4.0%	kept	Scale to 3.45, proper water exclusion	validated	2026-03-19T13:30:00Z
-2	C	2	99.9	+21.5	+27.4%	kept	Native crystal dims, proper exclusion (FIXED)	validated	2026-03-19T13:40:00Z
-2	C	3	99.9	+0.0	+0.0%	kept	Native dims, proper exclusion, density 1000	validated	2026-03-19T13:50:00Z
-3	C	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 320	validated	2026-03-19T15:00:00Z
-3	C	1	99.9	+0.0	+0.0%	kept	Native dims + exclusion, density 999	validated	2026-03-19T15:10:00Z
-3	C	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	validated	2026-03-19T15:20:00Z
+round	researcher	iteration	metric_value	delta	delta_pct	status	description	evaluator_source	peer_review_verdict	timestamp
+1	C	0	34.5	-	-	baseline	Rep 2, scale to 3.6, water everywhere	script:evaluate.py	challenged	2026-03-19T11:20:00Z
+1	C	1	34.5	+0.0	+0.0%	kept	Rep 2, scale to 3.6, partial water filter 50%	script:evaluate.py	challenged	2026-03-19T11:30:00Z
+1	C	2	40.5	+6.0	+17.4%	kept	Rep 2, scale to 3.5, partial water filter 70%	script:evaluate.py	challenged	2026-03-19T11:40:00Z
+1	C	3	65.0	+24.5	+60.5%	kept	Rep 2, native dims, but still water in slab	script:evaluate.py	challenged	2026-03-19T11:50:00Z
+2	C	0	75.4	+10.4	+16.0%	kept	Scale to 3.5, proper water exclusion	script:evaluate.py	validated	2026-03-19T13:20:00Z
+2	C	1	78.4	+3.0	+4.0%	kept	Scale to 3.45, proper water exclusion	script:evaluate.py	validated	2026-03-19T13:30:00Z
+2	C	2	99.9	+21.5	+27.4%	kept	Native crystal dims, proper exclusion (FIXED)	script:evaluate.py	validated	2026-03-19T13:40:00Z
+2	C	3	99.9	+0.0	+0.0%	kept	Native dims, proper exclusion, density 1000	script:evaluate.py	validated	2026-03-19T13:50:00Z
+3	C	0	99.9	+0.0	+0.0%	kept	Native dims + exclusion, seed 320	script:evaluate.py	validated	2026-03-19T15:00:00Z
+3	C	1	99.9	+0.0	+0.0%	kept	Native dims + exclusion, density 999	script:evaluate.py	validated	2026-03-19T15:10:00Z
+3	C	2	99.9	+0.0	+0.0%	kept	Native dims + exclusion, optimized (FINAL)	script:evaluate.py	validated	2026-03-19T15:20:00Z

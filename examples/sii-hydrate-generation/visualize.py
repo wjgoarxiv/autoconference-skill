@@ -2,10 +2,11 @@
 
 import csv
 import json
+import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, '/Users/woojin/.claude/skills/045_scientific-visualization/scripts')
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'scripts'))
 from style_presets import rcparams
 
 import matplotlib

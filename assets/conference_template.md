@@ -36,6 +36,13 @@
 ### Researcher C Focus
 {For assigned strategy: describe this researcher's exploration area}
 
+## Guard
+{Optional safety constraint applied to ALL researchers. If any researcher violates this, their changes are reverted regardless of metric improvement. Examples: "Do not modify the test set", "SKILL.md must stay under 300 lines", "No external API calls". Leave blank to disable.}
+
+## Noise Handling
+- **Noise runs:** {Number of repeated evaluations to average for noise reduction. Default: 1 (no noise handling). Set 3-5 for noisy metrics.}
+- **Min consensus delta:** {Minimum average improvement across kept researchers required to advance to next round. Default: 0 (any improvement counts). Set > 0 for noisy multi-researcher contexts.}
+
 ## Constraints
 - **Max total iterations:** 60
 - **Time budget:** 2h

@@ -18,17 +18,18 @@ One file per researcher (e.g., `researcher_A_results.tsv`, `researcher_B_results
 | `delta_pct` | string | Percentage change from baseline |
 | `status` | enum | `baseline`, `kept`, `reverted` |
 | `description` | string | One-line description of the change |
+| `evaluator_source` | string | Source of the evaluation — e.g., `script:evaluate.py`, `llm:opus`, `self-assessment` |
 | `timestamp` | ISO 8601 | When the experiment completed |
 
 ### Example
 
 ```tsv
-iteration	metric_value	delta	delta_pct	status	description	timestamp
-0	2.3991	-	-	baseline	Recursive quicksort with list comprehensions	2026-03-18T10:00:00Z
-1	1.8845	-0.5146	-21.4%	kept	Bottom-up iterative merge sort	2026-03-18T10:05:00Z
-2	1.7265	-0.6726	-28.0%	kept	Merge sort + insertion sort for subarrays < 32	2026-03-18T10:10:00Z
-3	1.9504	-0.4487	-18.7%	reverted	Natural merge sort with run detection	2026-03-18T10:15:00Z
-4	0.9817	-1.4174	-59.1%	kept	LSD radix sort base 256	2026-03-18T10:20:00Z
+iteration	metric_value	delta	delta_pct	status	description	evaluator_source	timestamp
+0	2.3991	-	-	baseline	Recursive quicksort with list comprehensions	script:benchmark.py	2026-03-18T10:00:00Z
+1	1.8845	-0.5146	-21.4%	kept	Bottom-up iterative merge sort	script:benchmark.py	2026-03-18T10:05:00Z
+2	1.7265	-0.6726	-28.0%	kept	Merge sort + insertion sort for subarrays < 32	script:benchmark.py	2026-03-18T10:10:00Z
+3	1.9504	-0.4487	-18.7%	reverted	Natural merge sort with run detection	script:benchmark.py	2026-03-18T10:15:00Z
+4	0.9817	-1.4174	-59.1%	kept	LSD radix sort base 256	script:benchmark.py	2026-03-18T10:20:00Z
 ```
 
 ### Notes
@@ -55,23 +56,24 @@ One file for the entire conference. Adds researcher identity, round context, and
 | `delta_pct` | string | Percentage change from round baseline |
 | `status` | enum | `baseline`, `kept`, `reverted`, `failed` |
 | `description` | string | One-line description of the change |
+| `evaluator_source` | string | Source of the evaluation — e.g., `script:evaluate.py`, `llm:opus`, `self-assessment` |
 | `peer_review_verdict` | enum | `validated`, `challenged`, `overturned`, `-` |
 | `timestamp` | ISO 8601 | When the experiment completed |
 
 ### Example
 
 ```tsv
-round	researcher	iteration	metric_value	delta	delta_pct	status	description	peer_review_verdict	timestamp
-1	A	0	2.3991	-	-	baseline	Recursive quicksort baseline	-	2026-03-18T10:00:00Z
-1	A	1	1.8845	-0.5146	-21.4%	kept	Bottom-up iterative merge sort	validated	2026-03-18T10:05:00Z
-1	A	2	1.7265	-0.6726	-28.0%	kept	Merge sort + insertion sort < 32	validated	2026-03-18T10:10:00Z
-1	B	0	2.4012	-	-	baseline	Recursive quicksort baseline	-	2026-03-18T10:00:00Z
-1	B	1	2.1500	-0.2512	-10.5%	kept	Heap sort implementation	challenged	2026-03-18T10:07:00Z
-1	B	2	1.9800	-0.4212	-17.5%	kept	Heap sort with Floyd's algorithm	validated	2026-03-18T10:12:00Z
-1	C	0	2.3950	-	-	baseline	Recursive quicksort baseline	-	2026-03-18T10:00:00Z
-1	C	1	0.9817	-1.4133	-59.1%	kept	LSD radix sort base 256	validated	2026-03-18T10:08:00Z
-2	A	0	1.7265	-	-	baseline	Round 2 start from best known	-	2026-03-18T10:30:00Z
-2	A	1	1.5100	-0.2165	-12.5%	kept	Merge sort + radix hybrid	validated	2026-03-18T10:35:00Z
+round	researcher	iteration	metric_value	delta	delta_pct	status	description	evaluator_source	peer_review_verdict	timestamp
+1	A	0	2.3991	-	-	baseline	Recursive quicksort baseline	script:benchmark.py	-	2026-03-18T10:00:00Z
+1	A	1	1.8845	-0.5146	-21.4%	kept	Bottom-up iterative merge sort	script:benchmark.py	validated	2026-03-18T10:05:00Z
+1	A	2	1.7265	-0.6726	-28.0%	kept	Merge sort + insertion sort < 32	script:benchmark.py	validated	2026-03-18T10:10:00Z
+1	B	0	2.4012	-	-	baseline	Recursive quicksort baseline	script:benchmark.py	-	2026-03-18T10:00:00Z
+1	B	1	2.1500	-0.2512	-10.5%	kept	Heap sort implementation	script:benchmark.py	challenged	2026-03-18T10:07:00Z
+1	B	2	1.9800	-0.4212	-17.5%	kept	Heap sort with Floyd's algorithm	script:benchmark.py	validated	2026-03-18T10:12:00Z
+1	C	0	2.3950	-	-	baseline	Recursive quicksort baseline	script:benchmark.py	-	2026-03-18T10:00:00Z
+1	C	1	0.9817	-1.4133	-59.1%	kept	LSD radix sort base 256	script:benchmark.py	validated	2026-03-18T10:08:00Z
+2	A	0	1.7265	-	-	baseline	Round 2 start from best known	script:benchmark.py	-	2026-03-18T10:30:00Z
+2	A	1	1.5100	-0.2165	-12.5%	kept	Merge sort + radix hybrid	script:benchmark.py	validated	2026-03-18T10:35:00Z
 ```
 
 ### Status Values

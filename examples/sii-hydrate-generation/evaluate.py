@@ -229,6 +229,7 @@ def main():
     parser.add_argument("--slab_z_max", type=float, required=True, help="Slab z maximum (nm)")
     parser.add_argument("--target_z", type=float, default=5.0, help="Target box z (nm)")
     parser.add_argument("--json_output", default=None, help="Path to write JSON results")
+    parser.add_argument("--threshold", type=float, default=0.0, help="Pass threshold for composite score")
     args = parser.parse_args()
 
     # Parse files
@@ -258,6 +259,8 @@ def main():
     )
 
     result = {
+        "pass": composite >= args.threshold,
+        "score": round(composite, 1),
         "composite": round(composite, 1),
         "structural": round(s_structural, 1),
         "density": round(s_density, 1),

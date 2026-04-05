@@ -5,12 +5,13 @@
   <em>Spawn a conference of autonomous researchers that compete, collaborate, and synthesize breakthroughs.</em>
 </p>
 <p align="center">
-  <a href="#when-to-use">When to Use</a> · <a href="#quick-start">Quick Start</a> · <a href="#features">Features</a> · <a href="#how-it-works">How It Works</a> · <a href="#templates">Templates</a> · <a href="./README-Ko-KR.md">한국어</a>
+  <a href="#commands">Commands</a> · <a href="#when-to-use">When to Use</a> · <a href="#quick-start">Quick Start</a> · <a href="#how-it-works">How It Works</a> · <a href="#templates">Templates</a> · <a href="#guide">Guide</a> · <a href="./README-Ko-KR.md">한국어</a>
 </p>
 <p align="center">
   <img src="https://img.shields.io/github/stars/wjgoarxiv/autoconference-skill?style=social" />
   <img src="https://img.shields.io/badge/license-MIT-blue" />
   <img src="https://img.shields.io/badge/python-3.8+-green" />
+  <img src="https://img.shields.io/badge/version-2.0.0-orange" />
   <img src="https://img.shields.io/badge/skill-Claude%20Code%20%7C%20Codex%20%7C%20OpenCode%20%7C%20Gemini-blueviolet" />
 </p>
 
@@ -32,13 +33,39 @@
 
 > 33 iterations across 3 researchers and 3 rounds. The conference learns to preserve crystal structure and exclude water from the hydrate slab. [See full example →](./examples/sii-hydrate-generation/)
 
+## Commands
+
+autoconference v2.0 provides 7 commands through a subcommand architecture:
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `/autoconference` | Core conference loop | Run N researchers through structured rounds with peer review |
+| `/autoconference:plan` | 8-step setup wizard | Interactively create a `conference.md` with dry-run evaluator gate |
+| `/autoconference:resume` | Checkpoint recovery | Resume an interrupted conference from last completed phase |
+| `/autoconference:analyze` | Post-conference analysis | Extract insights, failure modes, and transferable learnings |
+| `/autoconference:debate` | Adversarial debate | 2-researcher pro/con format with Opus judge |
+| `/autoconference:survey` | Literature survey | Multi-database systematic review with citation chains |
+| `/autoconference:ship` | Ship results | 8-phase pipeline to format results for publication |
+
+**Command chaining:**
+```
+plan ──> autoconference ──> ship              (standard pipeline)
+plan ──> autoconference ──> analyze ──> ship  (with post-analysis)
+debate ──> autoconference                     (debate-informed experiment)
+survey ──> autoconference                     (literature-guided experiment)
+resume ──> autoconference                     (continuation)
+```
+
 ## Features
 
 - **Multi-Agent Orchestration** -- N researchers explore different parts of the search space in parallel, then share findings after each round.
 - **Adversarial Peer Review** -- Opus-powered Reviewer agent challenges claims each round, catching overfitting and measurement noise before results propagate.
 - **Synthesis Over Selection** -- Final output combines complementary insights from multiple researchers, not just picks the winner.
 - **Dual Mode** -- Metric mode for numeric optimization, Qualitative mode for literature review and hypothesis generation.
+- **7 Subcommands** -- Plan, run, resume, analyze, debate, survey, and ship — chainable into full research pipelines.
+- **Guard Parameters** -- Conference-level safety constraints that override metric improvements when violated.
 - **Automatic Convergence** -- Detects plateau, budget exhaustion, or stall and triggers final synthesis automatically.
+- **Crash Recovery** -- 5-type recovery matrix for interrupted conferences (mid-research, mid-poster, mid-review, mid-transfer, pre-synthesis).
 - **Full Audit Trail** -- Per-researcher logs, poster sessions, peer reviews, conference-level TSV, and JSONL event stream.
 - **Built on autoresearch-skill** -- Each researcher runs the proven 5-stage experiment-evaluate-iterate loop.
 - **Safety Built In** -- Max iterations, time budgets, researcher timeouts, forbidden-change boundaries, and automatic rollback.
@@ -242,6 +269,8 @@ Ready-to-use `conference.md` configs for common tasks:
 | `templates/prompt-optimization.md` | metric | Optimize LLM prompt accuracy with 3 specialized researchers |
 | `templates/code-performance.md` | metric | Optimize code speed with algorithmic, data-structure, and low-level researchers |
 | `templates/research-synthesis.md` | qualitative | Literature exploration across foundational, recent, and cross-domain angles |
+| `templates/debate-mode.md` | qualitative | 2-researcher adversarial debate with structured rounds and Opus judge |
+| `templates/survey-mode.md` | qualitative | Multi-database literature survey with citation chain tracking |
 
 ## Configuration Options
 
@@ -255,6 +284,9 @@ Ready-to-use `conference.md` configs for common tasks:
 | `time_budget` | -- | Wall-clock limit for the entire conference |
 | `researcher_timeout` | -- | Per-researcher timeout per round |
 | `strategy` | `free` | `assigned` (focus areas) or `free` (open exploration) |
+| `guard` | -- | Safety constraint enforced on ALL researchers (violations revert regardless of metric) |
+| `noise_runs` | 1 | Repeated evaluations to average for noise reduction |
+| `min_consensus_delta` | 0 | Minimum average improvement across kept researchers to advance |
 
 ## Output Files
 
@@ -299,23 +331,46 @@ Each researcher in a conference runs the **autoresearch loop** -- the same auton
 
 Use autoresearch-skill for a single focused research loop. Use autoconference when your search space is large enough to partition, when diversity of approach matters, or when you want external validation of results.
 
+## Guide
+
+Comprehensive documentation is available in the `guide/` directory:
+
+| Guide | Topic |
+|-------|-------|
+| [Getting Started](guide/getting-started.md) | 60-second quickstart + domain cheat sheet |
+| [Core Conference](guide/autoconference.md) | 4-phase round structure, convergence, overnight runs |
+| [Plan](guide/plan.md) | 8-step setup wizard |
+| [Resume](guide/resume.md) | Checkpoint recovery |
+| [Analyze](guide/analyze.md) | Post-conference insight extraction |
+| [Debate](guide/debate.md) | Adversarial 2-researcher format |
+| [Survey](guide/survey.md) | Multi-database literature survey |
+| [Ship](guide/ship.md) | Conference results to publication |
+| [Chains](guide/chains-and-combinations.md) | Command chaining patterns |
+| [Advanced](guide/advanced-patterns.md) | Guards, noise, worktrees, CI/CD |
+| [Troubleshooting](guide/troubleshooting.md) | Common failure modes and fixes |
+
+See also: [COMPARISON.md](./COMPARISON.md) for autoconference vs alternatives.
+
 ## Cross-Platform Compatibility
 
-| Platform | Status |
-|----------|--------|
-| Claude Code | Ready -- uses `Agent` tool for parallel researcher spawning |
-| Gemini CLI | Future -- subagent API needs research |
-| Codex CLI | Future -- subagent API needs research |
+| Platform | Status | Install |
+|----------|--------|---------|
+| Claude Code | Ready | Plugin install or manual symlink |
+| Codex CLI | Ready | See `.codex/INSTALL.md` |
+| OpenCode | Ready | See `.opencode/INSTALL.md` |
+| Gemini CLI | Ready | Uses `gemini-extension.json` auto-discovery |
 
 ## Requirements
 
 | Requirement | Details |
 |-------------|---------|
-| **Python** | 3.8+ (stdlib only) |
-| **Claude Code** | With `Agent` tool support for parallel execution |
+| **Python** | 3.8+ (stdlib only — for `scripts/init_conference.py` only) |
+| **LLM CLI** | Any CLI with subagent support (Claude Code, Codex CLI, OpenCode, Gemini CLI) |
 | **autoresearch-skill** | Referenced by each researcher agent's prompt |
 
 ## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)

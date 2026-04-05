@@ -1,0 +1,47 @@
+{
+  "marketplace": {
+    "name": "autoconference",
+    "version": "2.0.0",
+    "description": "Multi-agent research conference skill suite — run structured AI research sessions with parallel researchers, adversarial debate, and automated reporting.",
+    "repository": "https://github.com/wjgoarxiv/autoconference-skill",
+    "author": { "name": "wjgoarxiv" },
+    "license": "MIT"
+  },
+  "skills": [
+    {
+      "name": "autoconference",
+      "description": "Core conference loop — orchestrates 3–5 parallel researchers, Devil's Advocate, and chairman synthesis over multiple rounds.",
+      "path": "autoconference.md"
+    },
+    {
+      "name": "plan",
+      "description": "8-step interactive setup wizard — configures topic, depth, researcher personas, output format, and checkpoint settings before the conference starts.",
+      "path": "plan.md"
+    },
+    {
+      "name": "resume",
+      "description": "Checkpoint recovery — detects the latest saved state and resumes a paused or interrupted conference from where it left off.",
+      "path": "resume.md"
+    },
+    {
+      "name": "analyze",
+      "description": "Post-conference analysis — synthesizes all round transcripts into structured insights, citations, and gap analysis.",
+      "path": "analyze.md"
+    },
+    {
+      "name": "debate",
+      "description": "Adversarial 2-researcher format — pits two opposing AI researchers against each other in structured rebuttal rounds to stress-test a hypothesis.",
+      "path": "debate.md"
+    },
+    {
+      "name": "survey",
+      "description": "Literature survey mode — generates a systematic review outline, clusters related work, and produces a comparative summary table.",
+      "path": "survey.md"
+    },
+    {
+      "name": "ship",
+      "description": "Conference results shipping — packages transcripts, analysis, and figures into a shareable report (Markdown / PDF / Notion).",
+      "path": "ship.md"
+    }
+  ]
+}

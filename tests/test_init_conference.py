@@ -87,3 +87,43 @@ def test_rejects_missing_metric_in_metric_mode(tmp_path):
         text=True,
     )
     assert result.returncode != 0
+
+
+def test_guard_flag(tmp_path):
+    result = run_init(tmp_path, "--guard", "Do not modify test data")
+    assert result.returncode == 0
+    conf = tmp_path / "my-conference" / "conference.md"
+    text = conf.read_text()
+    assert "Do not modify test data" in text
+    assert "## Guard" in text
+
+
+def test_noise_runs_flag(tmp_path):
+    result = run_init(tmp_path, "--noise-runs", "5")
+    assert result.returncode == 0
+    conf = tmp_path / "my-conference" / "conference.md"
+    text = conf.read_text()
+    assert "**Noise runs:** 5" in text
+
+
+def test_min_delta_flag(tmp_path):
+    result = run_init(tmp_path, "--min-delta", "0.05")
+    assert result.returncode == 0
+    conf = tmp_path / "my-conference" / "conference.md"
+    text = conf.read_text()
+    assert "**Min consensus delta:** 0.05" in text
+
+
+def test_tsv_has_evaluator_source_column(tmp_path):
+    run_init(tmp_path)
+    base = tmp_path / "my-conference"
+    # Per-researcher TSV should have 8 columns
+    researcher_tsv = (base / "researcher_A_results.tsv").read_text()
+    header = researcher_tsv.split("\n")[0]
+    assert "evaluator_source" in header
+    assert len(header.split("\t")) == 8
+    # Conference TSV should have 11 columns
+    conf_tsv = (base / "conference_results.tsv").read_text()
+    conf_header = conf_tsv.split("\n")[0]
+    assert "evaluator_source" in conf_header
+    assert len(conf_header.split("\t")) == 11

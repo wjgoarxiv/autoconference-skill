@@ -45,6 +45,13 @@ metric
 
 {researcher_sections}
 
+## Guard
+{guard}
+
+## Noise Handling
+- **Noise runs:** {noise_runs}
+- **Min consensus delta:** {min_delta}
+
 ## Constraints
 - **Max total iterations:** {max_total_iterations}
 - **Time budget:** 2h
@@ -93,6 +100,13 @@ qualitative
 
 {researcher_sections}
 
+## Guard
+{guard}
+
+## Noise Handling
+- **Noise runs:** {noise_runs}
+- **Min consensus delta:** {min_delta}
+
 ## Constraints
 - **Max total iterations:** {max_total_iterations}
 - **Time budget:** 2h
@@ -125,12 +139,12 @@ LOG_TEMPLATE = """\
 
 """
 
-RESEARCHER_TSV_HEADER = "iteration\tmetric_value\tdelta\tdelta_pct\tstatus\tdescription\ttimestamp\n"
-RESEARCHER_TSV_BASELINE = "0\tTBD\t-\t-\tbaseline\tInitial state\t{date}\n"
+RESEARCHER_TSV_HEADER = "iteration\tmetric_value\tdelta\tdelta_pct\tstatus\tdescription\tevaluator_source\ttimestamp\n"
+RESEARCHER_TSV_BASELINE = "0\tTBD\t-\t-\tbaseline\tInitial state\tmanual\t{date}\n"
 
 CONFERENCE_TSV_HEADER = (
     "round\tresearcher\titeration\tmetric_value\tdelta\tdelta_pct\t"
-    "status\tdescription\tpeer_review_verdict\ttimestamp\n"
+    "status\tdescription\tevaluator_source\tpeer_review_verdict\ttimestamp\n"
 )
 
 
@@ -238,6 +252,25 @@ def parse_args() -> argparse.Namespace:
         help="Maximum number of rounds. Default: 4",
     )
     parser.add_argument(
+        "--guard",
+        default=None,
+        help="Safety constraint applied to all researchers (e.g., 'Do not modify the test set').",
+    )
+    parser.add_argument(
+        "--noise-runs",
+        type=int,
+        default=1,
+        metavar="N",
+        help="Repeated evaluations to average for noise reduction. Default: 1",
+    )
+    parser.add_argument(
+        "--min-delta",
+        type=float,
+        default=0.0,
+        metavar="F",
+        help="Minimum average improvement across kept researchers to advance. Default: 0.0",
+    )
+    parser.add_argument(
         "--output",
         default="./conference/",
         metavar="PATH",
@@ -280,6 +313,9 @@ def scaffold(args: argparse.Namespace) -> None:
     rids = researcher_ids(args.researchers)
     max_total_iterations = args.researchers * args.iterations_per_round * args.max_rounds
     researcher_sections = make_researcher_sections(rids, args.strategy)
+    guard_text = args.guard if args.guard else "_No guard constraint. Leave blank or define a safety invariant._"
+    noise_runs = args.noise_runs
+    min_delta = args.min_delta
 
     # Check existing directory
     if output.exists() and any(output.iterdir()):
@@ -310,6 +346,9 @@ def scaffold(args: argparse.Namespace) -> None:
             strategy=args.strategy,
             researcher_sections=researcher_sections,
             max_total_iterations=max_total_iterations,
+            guard=guard_text,
+            noise_runs=noise_runs,
+            min_delta=min_delta,
         )
     else:
         conf_text = CONFERENCE_TEMPLATE_QUALITATIVE.format(
@@ -322,6 +361,9 @@ def scaffold(args: argparse.Namespace) -> None:
             strategy=args.strategy,
             researcher_sections=researcher_sections,
             max_total_iterations=max_total_iterations,
+            guard=guard_text,
+            noise_runs=noise_runs,
+            min_delta=min_delta,
         )
     (output / "conference.md").write_text(conf_text)
 

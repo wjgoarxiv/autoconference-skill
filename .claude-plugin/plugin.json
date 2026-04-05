@@ -1,0 +1,9 @@
+{
+  "name": "autoconference",
+  "version": "2.0.0",
+  "description": "Multi-agent research conference with 7 commands",
+  "author": { "name": "wjgoarxiv" },
+  "repository": "https://github.com/wjgoarxiv/autoconference-skill",
+  "license": "MIT",
+  "skills": "../skills/"
+}

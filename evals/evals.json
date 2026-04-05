@@ -29,5 +29,35 @@
     "input": "Review my conference.md and start the research conference with adversarial review",
     "expected_skill": "autoconference-skill",
     "should_trigger": true
+  },
+  {
+    "input": "Help me plan a new conference with 3 researchers to optimize my API latency",
+    "expected_skill": "autoconference:plan",
+    "should_trigger": true
+  },
+  {
+    "input": "My conference was interrupted last night, can you resume it from where it left off?",
+    "expected_skill": "autoconference:resume",
+    "should_trigger": true
+  },
+  {
+    "input": "Analyze the results from my completed conference and tell me what patterns emerged",
+    "expected_skill": "autoconference:analyze",
+    "should_trigger": true
+  },
+  {
+    "input": "I want a structured debate between two researchers about whether transformers or SSMs are better for long-context tasks",
+    "expected_skill": "autoconference:debate",
+    "should_trigger": true
+  },
+  {
+    "input": "Do a systematic literature survey on RLHF techniques covering PubMed, arXiv, and Semantic Scholar",
+    "expected_skill": "autoconference:survey",
+    "should_trigger": true
+  },
+  {
+    "input": "Ship the conference results as a research report with proper citations",
+    "expected_skill": "autoconference:ship",
+    "should_trigger": true
   }
 ]
