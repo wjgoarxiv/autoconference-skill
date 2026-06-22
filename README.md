@@ -107,7 +107,7 @@ Autoconference builds on [autoresearch-skill](https://github.com/wjgoarxiv/autor
 ```
 I want to install the autoconference-skill. Do these steps:
 1. git clone https://github.com/wjgoarxiv/autoconference-skill.git /tmp/autoconference-skill
-2. mkdir -p ~/.claude/skills/autoconference-skill && cp -r /tmp/autoconference-skill/SKILL.md /tmp/autoconference-skill/scripts /tmp/autoconference-skill/assets /tmp/autoconference-skill/references ~/.claude/skills/autoconference-skill/
+2. mkdir -p ~/.claude/skills/autoconference-skill && cp -r /tmp/autoconference-skill/SKILL.md /tmp/autoconference-skill/skills /tmp/autoconference-skill/scripts /tmp/autoconference-skill/assets /tmp/autoconference-skill/references /tmp/autoconference-skill/templates ~/.claude/skills/autoconference-skill/
 3. Test: python ~/.claude/skills/autoconference-skill/scripts/init_conference.py --goal "test" --metric "score" --direction minimize --researchers 2 --output /tmp/test-conference && echo "OK: autoconference-skill installed"
 4. Say "autoconference-skill installed successfully"
 ```
@@ -128,8 +128,8 @@ ln -s "$(pwd)" ~/.claude/skills/autoconference-skill
 | Tool | Install Command |
 |------|----------------|
 | Claude Code | Paste the copy-paste block above, or use the manual install |
-| Codex CLI | Copy `SKILL.md` into your Codex instructions directory |
-| Gemini CLI | Copy `SKILL.md` into your Gemini context directory |
+| Codex CLI | Symlink/copy the repository directory so `SKILL.md`, `skills/`, `references/`, and `scripts/` stay together |
+| Gemini CLI | Symlink/copy the repository directory and keep `gemini-extension.json` at the repo root |
 
 ### Other Platforms
 
@@ -288,6 +288,28 @@ Ready-to-use `conference.md` configs for common tasks:
 | `noise_runs` | 1 | Repeated evaluations to average for noise reduction |
 | `min_consensus_delta` | 0 | Minimum average improvement across kept researchers to advance |
 
+## What You Get
+
+The conference writes both human-readable reports and machine-readable logs. The sII hydrate example shows the same contract in a completed run.
+
+| Output | Purpose | Example artifact | How to inspect |
+|--------|---------|------------------|----------------|
+| `conference.md` | Input config plus round log and shared knowledge | [`examples/sii-hydrate-generation/conference.md`](./examples/sii-hydrate-generation/conference.md) | Read first to confirm goal, metric, guardrails |
+| `conference_results.tsv` | Master table: all rounds, researchers, metrics, verdicts | [`conference_results.tsv`](./examples/sii-hydrate-generation/conference_results.tsv) | Run `python scripts/validate_package.py` or import into a spreadsheet |
+| `researcher_A_results.tsv` | Per-researcher TSV compatible with single-agent result logs | [`researcher_A_results.tsv`](./examples/sii-hydrate-generation/researcher_A_results.tsv) | Check 8-column schema from `references/results-logging.md` |
+| `conference_events.jsonl` | Append-only event stream for resume/progress tools | [`conference_events.jsonl`](./examples/sii-hydrate-generation/conference_events.jsonl) | One JSON object per line |
+| `poster_session_round_N.md` | Session-chair summary after each round | [`poster_session_round_1.md`](./examples/sii-hydrate-generation/poster_session_round_1.md) | Compare researcher findings |
+| `peer_review_round_N.md` | Adversarial validation of claims | [`peer_review_round_1.md`](./examples/sii-hydrate-generation/peer_review_round_1.md) | Look for challenged/overturned claims |
+| `synthesis.md` | Final cross-researcher synthesis | [`synthesis.md`](./examples/sii-hydrate-generation/synthesis.md) | Read before the full report |
+| `final_report.md` | Executive summary and evidence trail | [`final_report.md`](./examples/sii-hydrate-generation/final_report.md) | Shareable result summary |
+
+Quick validation from the repo root:
+
+```bash
+python scripts/validate_package.py
+bash scripts/check_conference.sh examples/sii-hydrate-generation
+```
+
 ## Output Files
 
 | File | Description |
@@ -348,6 +370,8 @@ Comprehensive documentation is available in the `guide/` directory:
 | [Chains](guide/chains-and-combinations.md) | Command chaining patterns |
 | [Advanced](guide/advanced-patterns.md) | Guards, noise, worktrees, CI/CD |
 | [Troubleshooting](guide/troubleshooting.md) | Common failure modes and fixes |
+| [Self-Improvement](guide/self-improvement.md) | Convert confusing runs into safe improvement plans and eval cases |
+| [Eval Coverage](evals/README.md) | Routing and safety scenario categories |
 
 See also: [COMPARISON.md](./COMPARISON.md) for autoconference vs alternatives.
 

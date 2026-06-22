@@ -23,7 +23,7 @@ Paste this block directly into Claude Code. It clones, installs, and verifies in
 ```
 I want to install the autoconference-skill. Do these steps:
 1. git clone https://github.com/wjgoarxiv/autoconference-skill.git /tmp/autoconference-skill
-2. mkdir -p ~/.claude/skills/autoconference-skill && cp -r /tmp/autoconference-skill/SKILL.md /tmp/autoconference-skill/scripts /tmp/autoconference-skill/assets /tmp/autoconference-skill/references ~/.claude/skills/autoconference-skill/
+2. mkdir -p ~/.claude/skills/autoconference-skill && cp -r /tmp/autoconference-skill/SKILL.md /tmp/autoconference-skill/skills /tmp/autoconference-skill/scripts /tmp/autoconference-skill/assets /tmp/autoconference-skill/references /tmp/autoconference-skill/templates ~/.claude/skills/autoconference-skill/
 3. Test: python ~/.claude/skills/autoconference-skill/scripts/init_conference.py --goal "test" --metric "score" --direction minimize --researchers 2 --output /tmp/test-conference && echo "OK: autoconference-skill installed"
 4. Say "autoconference-skill installed successfully"
 ```
@@ -127,6 +127,13 @@ final_report.md                ← executive summary
 ```
 
 Read `synthesis.md` first. It combines the best findings from all researchers. Then read `final_report.md` for the full audit trail.
+
+To validate the package and a completed example from the repository root:
+
+```bash
+python scripts/validate_package.py
+bash scripts/check_conference.sh examples/sii-hydrate-generation
+```
 
 ---
 

@@ -191,7 +191,7 @@ is_complete() {
                      | head -1)" || true
         if [[ -n "$max_rounds" && "$max_rounds" -gt 0 ]]; then
             local completed_rounds
-            completed_rounds="$(grep -c '"round\.completed"' "$events_jsonl" 2>/dev/null)" || completed_rounds=0
+            completed_rounds="$(grep -Ec '"round\.completed"|"round\.[0-9]+\.completed"' "$events_jsonl" 2>/dev/null)" || completed_rounds=0
             if [[ "$completed_rounds" -ge "$max_rounds" ]]; then
                 log "Completion detected: completed rounds (${completed_rounds}) >= max_rounds (${max_rounds})."
                 return 0

@@ -17,23 +17,34 @@ if [[ -f "$CONF_MD" ]]; then
     # First non-empty line after "## Goal"
     goal=$(awk '/^## Goal/{found=1; next} found && /[^[:space:]]/{print; exit}' \
            "$CONF_MD")
-    # max_rounds: line matching "max_rounds" or "Rounds:"
+    # max_rounds: line matching "max_rounds", "Rounds:", or scaffolded "Max rounds:"
     max_rounds=$(grep -m1 -iE 'max_rounds|Rounds:' "$CONF_MD" \
-                 | grep -oE '[0-9]+' \
-                 | head -1)
-    # Researcher count: count lines matching "- name:" or "**Name:**" patterns
-    researcher_count=$(grep -cE '^\s*-\s+\*\*Name\*\*:|^\s*-\s+name:' "$CONF_MD" 2>/dev/null) || researcher_count=0
+                  | grep -oE '[0-9]+' \
+                  | head -1)
+    # Researcher count: prefer scaffolded "Count", fall back to named researcher entries
+    researcher_count=$(grep -m1 -iE '\*\*Count:\*\*|^count:' "$CONF_MD" \
+                       | grep -oE '[0-9]+' \
+                       | head -1)
+    if [[ -z "$researcher_count" ]]; then
+        researcher_count=$(grep -cE '^\s*-\s+\*\*Name\*\*:|^\s*-\s+name:' "$CONF_MD" 2>/dev/null) || researcher_count=0
+    fi
+    # Direction
+    direction=$(grep -m1 -i '\*\*Direction:\*\*' "$CONF_MD" \
+                | sed 's/.*\*\*Direction:\*\*[[:space:]]*//' \
+                | sed 's/[[:space:]]*$//' \
+                | tr '[:upper:]' '[:lower:]')
     # Target
     target=$(grep -m1 -i '\*\*Target:\*\*' "$CONF_MD" \
-             | sed 's/.*\*\*Target:\*\*[[:space:]]*//' \
-             | sed 's/[[:space:]]*$//')
+              | sed 's/.*\*\*Target:\*\*[[:space:]]*//' \
+              | sed 's/[[:space:]]*$//')
 else
-    goal="?"; max_rounds="?"; researcher_count="?"; target="?"
+    goal="?"; max_rounds="?"; researcher_count="?"; direction="maximize"; target="?"
 fi
 
 [[ -z "$goal"              ]] && goal="?"
 [[ -z "$max_rounds"        ]] && max_rounds="?"
 [[ -z "$researcher_count"  ]] && researcher_count="?"
+[[ -z "$direction"          ]] && direction="maximize"
 [[ -z "$target"            ]] && target="?"
 
 # ── Parse conference_results.tsv ──────────────────────────────────────────────
@@ -41,10 +52,12 @@ fi
 best_metric="?"; best_researcher="?"
 
 if [[ -f "$RESULTS_TSV" ]]; then
-    # Expect columns: researcher, metric_value, ... (skip header row)
+    # Expect conference-level columns:
+    # round, researcher, iteration, metric_value, delta, delta_pct, status, description,
+    # evaluator_source, peer_review_verdict, timestamp
     # Track best metric value and which researcher achieved it
     best_val=""
-    while IFS=$'\t' read -r f_researcher f_metric f_rest; do
+    while IFS=$'\t' read -r f_round f_researcher f_iteration f_metric f_rest; do
         [[ -z "$f_researcher" ]] && continue
         val="$f_metric"
         if [[ "$val" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
@@ -52,8 +65,11 @@ if [[ -f "$RESULTS_TSV" ]]; then
                 best_val="$val"
                 best_researcher="$f_researcher"
             else
-                # Default: higher is better
-                better=$(awk -v a="$val" -v b="$best_val" 'BEGIN{print (a>b)?1:0}')
+                if [[ "$direction" == "minimize" ]]; then
+                    better=$(awk -v a="$val" -v b="$best_val" 'BEGIN{print (a<b)?1:0}')
+                else
+                    better=$(awk -v a="$val" -v b="$best_val" 'BEGIN{print (a>b)?1:0}')
+                fi
                 if [[ "$better" == "1" ]]; then
                     best_val="$val"
                     best_researcher="$f_researcher"
@@ -73,8 +89,8 @@ fi
 current_round="0"; last_event_type="?"; last_event_ts="?"; stuck_count="0"
 
 if [[ -f "$EVENTS_JSONL" ]]; then
-    # Count "round.completed" events for current round number
-    completed_rounds=$(grep -c '"round\.completed"' "$EVENTS_JSONL" 2>/dev/null) || completed_rounds=0
+    # Count current and legacy round completion event names.
+    completed_rounds=$(grep -Ec '"round\.completed"|"round\.[0-9]+\.completed"' "$EVENTS_JSONL" 2>/dev/null) || completed_rounds=0
     current_round="$completed_rounds"
 
     # Count "researcher.stuck" events

@@ -4,6 +4,19 @@
 
 ## Results
 
+## Goal, Metric, and Expected Outputs
+
+| Field | Value |
+|-------|-------|
+| **Goal** | Generate a valid sII clathrate hydrate + water `.gro` file with crystal preservation and water outside the hydrate slab |
+| **Mode** | metric |
+| **Metric** | `composite_score` from `evaluate.py` (maximize, target `>= 80`) |
+| **Best result** | 99.9/100, zero water molecules in slab, crystal deviation < 0.0001 nm |
+| **Reproduce** | From this directory, run `python evaluate.py sii_hydrate_water.gro --threshold 80`; regenerate plots with `python visualize.py` |
+| **Verify artifacts** | From repo root, run `python scripts/validate_package.py` and `bash scripts/check_conference.sh examples/sii-hydrate-generation` |
+
+Expected outputs are the `.gro` structures, TSV/JSONL logs, poster sessions, peer reviews, `synthesis.md`, `final_report.md`, and plot/snapshot PNGs linked below.
+
 | Composite Score Convergence | Sub-metric Breakdown |
 |:---:|:---:|
 | ![Convergence](./plot_composite_convergence.png) | ![Sub-metrics](./plot_submetric_breakdown.png) |
@@ -50,3 +63,18 @@ The 3D snapshots below show how the molecular structure improves as the conferen
 | `snapshot_round2.png` | Round 2 structure (partial exclusion) |
 | `snapshot_final.png` | Final structure (clean separation) |
 | `results.png` | Combined 4-panel figure |
+
+## Verification
+
+```bash
+cd examples/sii-hydrate-generation
+python evaluate.py sii_hydrate_water.gro --threshold 80
+python visualize.py
+```
+
+From the repository root:
+
+```bash
+python scripts/validate_package.py
+bash scripts/check_conference.sh examples/sii-hydrate-generation
+```
