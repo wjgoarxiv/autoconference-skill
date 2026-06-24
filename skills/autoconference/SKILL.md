@@ -22,7 +22,24 @@ allowed-tools:
 
 ## Pre-Flight Setup (Mandatory)
 
-Before starting any conference, the Conference Chair MUST ask the user these questions. Do NOT assume defaults — present options and wait for the user's answer.
+Before starting any conference, the Conference Chair MUST run the start gate below. Do NOT start Phase 1 from implied defaults or a partially specified request.
+
+### Start Gate: Inputs → Conditions → Final Confirm
+
+Required inputs:
+- **Researcher count:** exact number of researcher agents.
+- **Iterations:** `iterations_per_round` and `max_rounds`, or an exact `max_total_iterations` budget from which those values can be calculated.
+- **Success definition:** metric mode requires metric name, target, and direction; qualitative mode requires explicit natural-language Success Criteria.
+- **Critic / Devil's Advocate setting:** the adversarial Reviewer remains mandatory every round; ask whether one researcher should also be assigned as a Devil's Advocate (`yes`/`no`).
+
+Gate behavior:
+1. **If all required inputs are exact:** calculate the run conditions (`researcher_count × iterations_per_round × max_rounds = max_total_iterations`), summarize researcher count, iteration budget, Success Metric/Criteria, and Critic/Devil's Advocate setting, then ask for explicit final confirmation: "Proceed with these conditions?"
+2. **If any required input is missing or vague:** stop and ask the user for exact values. After the user supplies them, calculate the run conditions and ask for final confirmation.
+3. **Only after the user confirms:** continue to STARTUP Step 1 and begin the conference workflow.
+
+The user may answer "use recommended defaults" only after seeing the recommended values in the confirmation summary; that still counts as explicit final confirmation.
+
+After the start gate, ask or confirm the remaining setup questions as needed.
 
 ### Question 1: Researcher Count
 Ask: "How many researchers should participate in this conference?"
@@ -65,7 +82,7 @@ Present options:
 
 If the user already specified this in conference.md, confirm it.
 
-**IMPORTANT:** Do NOT start Phase 1 of Round 1 until ALL pre-flight questions are answered. If the user says "just use defaults," that counts as an answer — proceed with recommended defaults.
+**IMPORTANT:** Do NOT start Phase 1 of Round 1 until ALL pre-flight questions are answered and the final confirmation gate is explicitly approved.
 
 ## When to Use This Skill
 
@@ -107,6 +124,8 @@ This is the master loop. Follow it exactly as the Conference Chair.
 
 **1. Read conference.md**
 Parse all sections. If any required field is missing or invalid, stop and tell the user what needs fixing before proceeding.
+
+If `conference.md` contains `## Pre-Flight Gate`, treat `**Final confirmation:** pending` as a hard stop: summarize the gate, ask for confirmation, and do not continue until the user approves.
 
 **2. Validate configuration**
 - `mode` must be `metric` or `qualitative`

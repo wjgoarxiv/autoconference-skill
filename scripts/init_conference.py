@@ -3,7 +3,8 @@ init_conference.py — Scaffold a new autoconference-skill project directory.
 
 Usage:
     python init_conference.py --goal "..." --metric "..." --direction {maximize|minimize} \
-        [--target "..."] [--researchers 3] [--strategy assigned] [--output ./conference/]
+        [--target "..."] [--researchers 3] [--strategy assigned] \
+        [--devils-advocate {yes|no}] [--output ./conference/]
 
     python init_conference.py --goal "..." --mode qualitative --criteria "..." \
         [--researchers 3] [--output ./conference/]
@@ -35,6 +36,16 @@ metric
 - **Count:** {researchers}
 - **Iterations per round:** {iterations_per_round}
 - **Max rounds:** {max_rounds}
+
+## Pre-Flight Gate
+- **Researcher count:** {researchers}
+- **Iterations per round:** {iterations_per_round}
+- **Max rounds:** {max_rounds}
+- **Max total iterations:** {max_total_iterations}
+- **Success definition:** {gate_success_definition}
+- **Critic / Devil's Advocate:** {critic_setting}
+- **Final confirmation:** pending — Conference Chair must summarize these conditions and get explicit user confirmation before execution.
+- **Missing or vague values:** ask the user for exact values first, then recalculate this gate and request final confirmation. Do not start Phase 1 until confirmation is explicit.
 
 ## Search Space
 - **Allowed changes:** _Define what researchers can modify._
@@ -90,6 +101,16 @@ qualitative
 - **Count:** {researchers}
 - **Iterations per round:** {iterations_per_round}
 - **Max rounds:** {max_rounds}
+
+## Pre-Flight Gate
+- **Researcher count:** {researchers}
+- **Iterations per round:** {iterations_per_round}
+- **Max rounds:** {max_rounds}
+- **Max total iterations:** {max_total_iterations}
+- **Success definition:** {gate_success_definition}
+- **Critic / Devil's Advocate:** {critic_setting}
+- **Final confirmation:** pending — Conference Chair must summarize these conditions and get explicit user confirmation before execution.
+- **Missing or vague values:** ask the user for exact values first, then recalculate this gate and request final confirmation. Do not start Phase 1 until confirmation is explicit.
 
 ## Search Space
 - **Allowed changes:** _Define what researchers can modify._
@@ -184,6 +205,7 @@ def parse_args() -> argparse.Namespace:
                 --direction minimize \\
                 --target "< 50" \\
                 --researchers 3 \\
+                --devils-advocate yes \\
                 --strategy assigned \\
                 --output ./my-conference/
 
@@ -216,8 +238,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--target",
-        default="TBD",
-        help="Target value or expression (e.g. '> 0.9', '< 50'). Default: TBD",
+        default=None,
+        help="Target value or expression (e.g. '> 0.9', '< 50'). Required for metric mode.",
     )
     parser.add_argument(
         "--criteria",
@@ -250,6 +272,15 @@ def parse_args() -> argparse.Namespace:
         default=4,
         metavar="N",
         help="Maximum number of rounds. Default: 4",
+    )
+    parser.add_argument(
+        "--devils-advocate",
+        default=None,
+        choices=["yes", "no"],
+        help=(
+            "Whether one researcher should be assigned as a Devil's Advocate. "
+            "If omitted, conference.md marks this as a required user prompt before running."
+        ),
     )
     parser.add_argument(
         "--guard",
@@ -292,6 +323,10 @@ def validate_args(args: argparse.Namespace) -> None:
         if not args.direction:
             print("Error: --direction is required when --mode is metric.", file=sys.stderr)
             sys.exit(1)
+        normalized_target = args.target.strip().lower() if args.target else ""
+        if not normalized_target or normalized_target in {"tbd", "todo", "unknown"}:
+            print("Error: --target is required when --mode is metric.", file=sys.stderr)
+            sys.exit(1)
     elif args.mode == "qualitative":
         if not args.criteria:
             print("Error: --criteria is required when --mode is qualitative.", file=sys.stderr)
@@ -305,6 +340,18 @@ def validate_args(args: argparse.Namespace) -> None:
         print("Error: --researchers must be <= 26.", file=sys.stderr)
         sys.exit(1)
 
+    if args.iterations_per_round < 1:
+        print("Error: --iterations-per-round must be >= 1.", file=sys.stderr)
+        sys.exit(1)
+
+    if args.max_rounds < 1:
+        print("Error: --max-rounds must be >= 1.", file=sys.stderr)
+        sys.exit(1)
+
+    if args.noise_runs < 1:
+        print("Error: --noise-runs must be >= 1.", file=sys.stderr)
+        sys.exit(1)
+
 
 def scaffold(args: argparse.Namespace) -> None:
     date = datetime.now().strftime("%Y-%m-%d")
@@ -316,6 +363,12 @@ def scaffold(args: argparse.Namespace) -> None:
     guard_text = args.guard if args.guard else "_No guard constraint. Leave blank or define a safety invariant._"
     noise_runs = args.noise_runs
     min_delta = args.min_delta
+    if args.devils_advocate == "yes":
+        critic_setting = "enabled"
+    elif args.devils_advocate == "no":
+        critic_setting = "disabled"
+    else:
+        critic_setting = "ask user before run"
 
     # Check existing directory
     if output.exists() and any(output.iterdir()):
@@ -334,6 +387,7 @@ def scaffold(args: argparse.Namespace) -> None:
 
     # Write conference.md
     if args.mode == "metric":
+        gate_success_definition = f"metric {args.metric} ({args.direction}) target {args.target}"
         conf_text = CONFERENCE_TEMPLATE_METRIC.format(
             title=title,
             goal=args.goal,
@@ -349,8 +403,11 @@ def scaffold(args: argparse.Namespace) -> None:
             guard=guard_text,
             noise_runs=noise_runs,
             min_delta=min_delta,
+            gate_success_definition=gate_success_definition,
+            critic_setting=critic_setting,
         )
     else:
+        gate_success_definition = f"criteria: {args.criteria}"
         conf_text = CONFERENCE_TEMPLATE_QUALITATIVE.format(
             title=title,
             goal=args.goal,
@@ -364,6 +421,8 @@ def scaffold(args: argparse.Namespace) -> None:
             guard=guard_text,
             noise_runs=noise_runs,
             min_delta=min_delta,
+            gate_success_definition=gate_success_definition,
+            critic_setting=critic_setting,
         )
     (output / "conference.md").write_text(conf_text)
 
@@ -391,6 +450,12 @@ def scaffold(args: argparse.Namespace) -> None:
     print(f"  conference_results.tsv")
     print(f"  conference_events.jsonl")
     print(f"  workspace/")
+    print(f"\nPre-flight gate:")
+    print(f"  Researcher count: {args.researchers}")
+    print(f"  Max total iterations: {max_total_iterations}")
+    print(f"  Success definition: {gate_success_definition}")
+    print(f"  Critic / Devil's Advocate: {critic_setting}")
+    print("  Final confirmation: pending before Phase 1")
     print(f"\nNext steps:")
     print(f"  1. Open conference.md and fill in 'Current Approach' and 'Search Space'.")
     print(f"  2. Edit researcher focus areas if using 'assigned' strategy.")

@@ -28,6 +28,16 @@ allowed-tools:
 
 *Spawn a conference of autonomous researchers that compete, collaborate, and synthesize breakthroughs.*
 
+## Mandatory Start Gate
+
+Before dispatching `/autoconference`, require a pre-flight confirmation gate:
+
+1. If the user has exactly specified researcher count, iterations/budget, Success Metric or Success Criteria, and Critic/Devil's Advocate inclusion, calculate the run conditions and ask for final confirmation.
+2. If any of those values are missing or vague, ask the user for exact values first; then calculate conditions and ask for final confirmation.
+3. Do not begin the conference loop until the user explicitly confirms the calculated conditions.
+
+The adversarial Reviewer is part of the protocol every round; the gate's Critic/Devil's Advocate choice controls whether an additional researcher is assigned a contrarian role.
+
 ## Conference Persistence Directive
 
 **The Conference Chair is relentless.** Once the conference begins:

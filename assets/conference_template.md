@@ -20,6 +20,16 @@
 - **Iterations per round:** 5
 - **Max rounds:** 4
 
+## Pre-Flight Gate
+- **Researcher count:** 3
+- **Iterations per round:** 5
+- **Max rounds:** 4
+- **Max total iterations:** 60
+- **Success definition:** {metric + target + direction, or qualitative criteria}
+- **Critic / Devil's Advocate:** {enabled | disabled | ask user before run}
+- **Final confirmation:** pending — Conference Chair must summarize these conditions and get explicit user confirmation before execution.
+- **Missing or vague values:** ask the user for exact values first, then recalculate this gate and request final confirmation. Do not start Phase 1 until confirmation is explicit.
+
 ## Search Space
 - **Allowed changes:** {What researchers CAN modify}
 - **Forbidden changes:** {What researchers CANNOT modify — e.g., test data, eval scripts}

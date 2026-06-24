@@ -50,6 +50,39 @@ class InitConferenceTests(unittest.TestCase):
             self.assertIn("minimize", text)
             self.assertIn("< 50", text)
 
+    def test_conference_md_contains_preflight_confirmation_gate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = self.run_init(tmp_path, "--devils-advocate", "yes")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            conf = tmp_path / "my-conference" / "conference.md"
+            text = conf.read_text()
+            self.assertIn("## Pre-Flight Gate", text)
+            self.assertIn("**Researcher count:** 3", text)
+            self.assertIn("**Final confirmation:** pending", text)
+            self.assertIn("Do not start Phase 1", text)
+            self.assertIn("**Critic / Devil's Advocate:** enabled", text)
+            self.assertIn("Max total iterations: 60", result.stdout)
+
+    def test_conference_md_marks_unspecified_devil_advocate_as_user_prompt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = self.run_init(tmp_path)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            conf = tmp_path / "my-conference" / "conference.md"
+            text = conf.read_text()
+            self.assertIn("**Critic / Devil's Advocate:** ask user before run", text)
+
+    def test_help_mentions_devils_advocate_gate_flag(self):
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), "--help"],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--devils-advocate", result.stdout)
+        self.assertIn("required user prompt before running", result.stdout)
+
     def test_creates_tsv_files(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
@@ -111,6 +144,76 @@ class InitConferenceTests(unittest.TestCase):
                 text=True,
             )
             self.assertNotEqual(result.returncode, 0)
+
+    def test_rejects_missing_target_in_metric_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCRIPT),
+                    "--goal",
+                    "Optimize latency",
+                    "--metric",
+                    "p95_latency_ms",
+                    "--direction",
+                    "minimize",
+                    "--output",
+                    str(tmp_path / "bad"),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("--target is required", result.stderr)
+
+    def test_rejects_placeholder_target_in_metric_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCRIPT),
+                    "--goal",
+                    "Optimize latency",
+                    "--metric",
+                    "p95_latency_ms",
+                    "--direction",
+                    "minimize",
+                    "--target",
+                    "TBD ",
+                    "--output",
+                    str(tmp_path / "bad"),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("--target is required", result.stderr)
+
+    def test_rejects_whitespace_target_in_metric_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(SCRIPT),
+                    "--goal",
+                    "Optimize latency",
+                    "--metric",
+                    "p95_latency_ms",
+                    "--direction",
+                    "minimize",
+                    "--target",
+                    "   ",
+                    "--output",
+                    str(tmp_path / "bad"),
+                ],
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("--target is required", result.stderr)
 
     def test_guard_flag(self):
         with tempfile.TemporaryDirectory() as tmp:

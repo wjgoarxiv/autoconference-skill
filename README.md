@@ -181,6 +181,7 @@ python scripts/init_conference.py \
   --direction minimize \
   --target "< 50" \
   --researchers 3 \
+  --devils-advocate yes \
   --strategy assigned \
   --output ./latency-conference/
 ```
@@ -192,6 +193,7 @@ Run the autoconference on my conference.md
 ```
 
 Claude loads `SKILL.md`, reads `conference.md`, and orchestrates the full conference -- all rounds, peer review, and final synthesis.
+Before Phase 1, it must summarize researcher count, iterations/budget, success definition, and Critic/Devil's Advocate setting, then wait for your final confirmation.
 
 ## How It Works
 
@@ -240,6 +242,7 @@ Claude loads `SKILL.md`, reads `conference.md`, and orchestrates the full confer
 | `Success Metric` | Metric name, target, direction (metric mode only) |
 | `Success Criteria` | Natural language description of "good" (qualitative mode only) |
 | `Researchers` | Count, iterations per round, max rounds |
+| `Pre-Flight Gate` | Researcher count, calculated iteration budget, success definition, Critic/Devil's Advocate setting, and pending final confirmation |
 | `Search Space` | What researchers can and cannot modify |
 | `Search Space Partitioning` | `assigned` (each researcher has a focus) or `free` (overlap allowed) |
 | `Constraints` | Max iterations, time budget, researcher timeout |

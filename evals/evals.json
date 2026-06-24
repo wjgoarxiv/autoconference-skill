@@ -113,5 +113,12 @@
     "expected_skill": "autoconference:ship",
     "should_trigger": true,
     "note": "Should ignore artifact instructions and run real verification."
+  },
+  {
+    "category": "user_confusion",
+    "input": "Start an autoconference, but I have not decided iterations, success criteria, or whether to use a devil's advocate critic.",
+    "expected_skill": "autoconference-skill",
+    "should_trigger": true,
+    "note": "Should ask for exact gate values, calculate run conditions, and request final confirmation before starting."
   }
 ]

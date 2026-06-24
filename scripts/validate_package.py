@@ -17,6 +17,25 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parent.parent
 
+
+def package_git_root() -> Path | None:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except FileNotFoundError:
+        return None
+    if result.returncode != 0:
+        return None
+    return Path(result.stdout.strip()).resolve()
+
+
+GIT_ROOT = package_git_root()
+
 CONFERENCE_TSV_HEADER = [
     "round",
     "researcher",
@@ -75,6 +94,8 @@ class Validator:
         return (base / path).resolve()
 
     def is_git_ignored(self, path: Path) -> bool:
+        if GIT_ROOT != ROOT.resolve():
+            return False
         try:
             rel = path.resolve().relative_to(ROOT.resolve())
         except ValueError:
@@ -257,6 +278,36 @@ class Validator:
         for path in required_paths:
             self.require(path.exists(), f"missing required contract doc: {path.relative_to(ROOT)}")
 
+    def check_preflight_gate_contract(self) -> None:
+        root_skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        core_skill = (ROOT / "skills" / "autoconference" / "SKILL.md").read_text(encoding="utf-8")
+        template = (ROOT / "assets" / "conference_template.md").read_text(encoding="utf-8")
+        init_script = (ROOT / "scripts" / "init_conference.py").read_text(encoding="utf-8")
+
+        for phrase in [
+            "Mandatory Start Gate",
+            "final confirmation",
+            "Critic/Devil's Advocate",
+            "researcher count",
+        ]:
+            self.require(phrase in root_skill, f"SKILL.md: missing pre-flight gate phrase {phrase!r}")
+
+        for phrase in [
+            "Start Gate: Inputs → Conditions → Final Confirm",
+            "Researcher count",
+            "If any required input is missing or vague",
+            "Do NOT start Phase 1",
+        ]:
+            self.require(phrase in core_skill, f"skills/autoconference/SKILL.md: missing pre-flight gate phrase {phrase!r}")
+
+        for phrase in ["## Pre-Flight Gate", "**Researcher count:**", "**Final confirmation:** pending", "Do not start Phase 1"]:
+            self.require(phrase in template, f"assets/conference_template.md: missing pre-flight gate phrase {phrase!r}")
+            self.require(phrase in init_script, f"scripts/init_conference.py: missing pre-flight gate phrase {phrase!r}")
+
+        self.require("--devils-advocate" in init_script, "scripts/init_conference.py: missing --devils-advocate option")
+        self.require("--target is required when --mode is metric" in init_script, "scripts/init_conference.py: metric mode target must be required")
+        self.require("args.target.strip().lower()" in init_script, "scripts/init_conference.py: placeholder target check must normalize whitespace/case")
+
     def run(self) -> int:
         self.check_json_files()
         self.check_manifests()
@@ -265,6 +316,7 @@ class Validator:
         self.check_examples()
         self.check_evals()
         self.check_docs_contract()
+        self.check_preflight_gate_contract()
 
         if self.errors:
             for error in self.errors:
